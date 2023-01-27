@@ -17,11 +17,11 @@
 				<h1
 					class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
 				>
-					Sign in to your account
+					Create a new account
 				</h1>
-				<form class="space-y-4 md:space-y-6" action="?/login" method="POST">
+				<form class="space-y-4 md:space-y-6" action="?/signup" method="POST">
 					<div>
-						<Label label="Your email">
+						<Label label="Your email" isRequired>
 							<input
 								type="email"
 								name="email"
@@ -32,23 +32,27 @@
 						</Label>
 					</div>
 					<div>
-						<Label label="Password">
+						<Label label="Password" isRequired>
 							<input
 								type="password"
 								name="password"
 								id="password"
 								placeholder="••••••••"
-								class={classNames.textInput}
 								required
+								class={classNames.textInput}
 							/>
+							<span class="font-extralight text-sm text-gray-400"
+								>Leave this field blank to sign in with a magic link</span
+							>
 						</Label>
 					</div>
 					<div class="flex items-center justify-between">
-						<button type="submit" class="w-full {classNames.buttonPrimary}">Sign in</button>
+						<button type="submit" class="w-full {classNames.buttonPrimary}">Sign up</button>
 					</div>
 
-					{#if form?.incorrect}
-						<Alert variant="danger">
+					{#if form?.success !== undefined && form.message}
+						{@const variant = form?.success === true ? 'success' : 'danger'}
+						<Alert {variant}>
 							{form?.message}
 						</Alert>
 					{/if}

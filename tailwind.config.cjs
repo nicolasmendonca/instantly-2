@@ -7,7 +7,8 @@ const config = {
 		extend: {
 			colors: {
 				primary: colors.orange,
-				danger: colors.red
+				danger: colors.red,
+				success: colors.green
 			}
 		}
 	},

@@ -1,15 +1,19 @@
 <script lang="ts">
-	type Variants = 'danger';
+	type Variants = 'danger' | 'success';
 
 	export let variant: Variants;
 
 	const isDanger = variant === 'danger';
+	const isSuccess = variant === 'success';
 </script>
 
 <div
 	class:border-danger-400={isDanger}
 	class:text-danger-800={isDanger}
 	class:dark:text-danger-400={isDanger}
+	class:border-success-400={isSuccess}
+	class:text-success-800={isSuccess}
+	class:dark:text-success-400={isSuccess}
 	class={'flex border p-4 mb-4 text-sm rounded-lg bg-danger-50 dark:bg-gray-800 '}
 	role="alert"
 >
