@@ -6,7 +6,8 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				primary: colors.purple
+				primary: colors.orange,
+				danger: colors.red
 			}
 		}
 	},
