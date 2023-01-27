@@ -22,7 +22,6 @@
 				<form class="space-y-4 md:space-y-6" action="?/login" method="POST">
 					<div>
 						<Label label="Your email">
-							Your email
 							<input
 								type="email"
 								name="email"
