@@ -4,8 +4,9 @@
 	import AppLogo from '$components/AppLogo.svelte';
 	import Label from '$components/Label.svelte';
 	import { classNames } from '$components/classNames';
-	import type { ActionData } from './$types';
+	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
+	import type { ActionData } from './$types';
 
 	export let form: ActionData;
 
@@ -40,7 +41,7 @@
 					/>
 				</Label>
 
-				<button type="submit" class="w-full {classNames.buttonPrimary}">Set new password</button>
+				<Button className="w-full">Set Password</Button>
 
 				{#if form}
 					{@const variant = form.success ? 'success' : 'danger'}

@@ -5,6 +5,7 @@
 	import Label from '$components/Label.svelte';
 	import { classNames } from '$components/classNames';
 	import type { ActionData } from './$types';
+	import Button from '$components/Button.svelte';
 
 	export let form: ActionData;
 </script>
@@ -34,7 +35,7 @@
 					/>
 				</Label>
 
-				<button type="submit" class="w-full {classNames.buttonPrimary}">Reset password</button>
+				<Button type="submit" className="w-full {classNames.buttonPrimary}">Reset password</Button>
 
 				{#if form}
 					{@const variant = form.success ? 'success' : 'danger'}

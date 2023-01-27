@@ -2,7 +2,7 @@ import type { Actions } from './$types';
 import { zfd } from 'zod-form-data'
 import { z } from 'zod'
 import { fail } from '@sveltejs/kit';
-import { env } from '$env/dynamic/public';
+import { paths, withBaseUrl } from '$routes/paths';
 
 const loginRequestSchema = zfd.formData({
   email: z.string(),
@@ -12,8 +12,8 @@ export const actions = {
   requestPasswordReset: async ({ request, locals }) => {
     const { supabase } = locals;
     const { email } = loginRequestSchema.parse(await request.formData())
-    const { error, data } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: env.PUBLIC_SUPABASE_AUTH_PASSWORD_RESET_REDIRECT_URL,
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: withBaseUrl(paths.auth.setPassword()),
     });
 
     if (error) {

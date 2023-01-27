@@ -2,7 +2,7 @@ import type { Actions } from './$types';
 import { zfd } from 'zod-form-data'
 import { z } from 'zod'
 import { fail } from '@sveltejs/kit';
-import { env } from '$env/dynamic/public'
+import { withBaseUrl, paths } from '$routes/paths';
 
 const loginRequestSchema = zfd.formData({
   email: z.string(),
@@ -15,7 +15,7 @@ export const actions = ({
     const { email, password } = loginRequestSchema.parse(await request.formData());
 
     const signUpOptions = {
-      emailRedirectTo: env.PUBLIC_SUPABASE_AUTH_REDIRECT_URL
+      emailRedirectTo: withBaseUrl(paths.auth.confirmSignUp())
     }
 
     const { data, error } = await supabase.auth.signUp({ email, password, options: signUpOptions })
