@@ -1,4 +1,17 @@
+<script lang="ts">
+	import { Dropdown } from 'flowbite';
+	import { onMount } from 'svelte';
+
+	let triggerElement: HTMLButtonElement;
+	let targetElement: HTMLDivElement;
+
+	onMount(() => {
+		new Dropdown(targetElement, triggerElement);
+	});
+</script>
+
 <button
+	bind:this={triggerElement}
 	data-dropdown-toggle="task-status-dropdown-select"
 	class="pointer hover:bg-neutral-600 hover:text-white transition-all border py-2 text-neutral-300 border-neutral-500 rounded-lg inline-block p-2 leading-loose"
 >
@@ -7,8 +20,9 @@
 
 <!-- Dropdown menu -->
 <div
+	bind:this={targetElement}
 	id="task-status-dropdown-select"
-	class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-700 dark:divide-neutral-600"
+	class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-900 dark:divide-neutral-600"
 >
 	<ul
 		class="p-3 space-y-1 text-md text-neutral-700 dark:text-neutral-200"
@@ -25,7 +39,7 @@
 				/>
 				<label
 					for="status-radio-in-backlog"
-					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
+					class="cursor-pointer w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
 					>In Backlog</label
 				>
 			</div>
@@ -42,7 +56,7 @@
 				/>
 				<label
 					for="status-radio-in-progress"
-					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
+					class="cursor-pointer w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
 					>In Progress</label
 				>
 			</div>
@@ -58,7 +72,8 @@
 				/>
 				<label
 					for="status-radio-done"
-					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200">Done</label
+					class="cursor-pointer w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
+					>Done</label
 				>
 			</div>
 		</li>

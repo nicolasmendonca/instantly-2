@@ -1,6 +1,18 @@
+<script lang="ts">
+	import { Dropdown } from 'flowbite';
+	import { onMount } from 'svelte';
+
+	let triggerElement: HTMLButtonElement;
+	let targetElement: HTMLDivElement;
+
+	onMount(() => {
+		new Dropdown(targetElement, triggerElement);
+	});
+</script>
+
 <button
+	bind:this={triggerElement}
 	type="button"
-	data-dropdown-toggle="assignee-button-dropdown"
 	class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
 >
 	<div>Nicolas Mendonca</div>
@@ -14,8 +26,8 @@
 
 <!-- Dropdown menu -->
 <div
-	id="assignee-button-dropdown"
-	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-700 h-[26rem]"
+	bind:this={targetElement}
+	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-900 h-[26rem]"
 >
 	<div class="p-3">
 		<label for="input-group-search" class="sr-only">Search</label>
