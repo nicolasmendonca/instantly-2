@@ -11,7 +11,7 @@
 	class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-700 dark:divide-neutral-600"
 >
 	<ul
-		class="p-3 space-y-1 text-sm text-neutral-700 dark:text-neutral-200"
+		class="p-3 space-y-1 text-md text-neutral-700 dark:text-neutral-200"
 		aria-labelledby="dropdownRadioBgHoverButton"
 	>
 		<li>
@@ -25,7 +25,7 @@
 				/>
 				<label
 					for="status-radio-in-backlog"
-					class="w-full ml-2 p-2 text-sm font-medium text-neutral-900 rounded dark:text-neutral-300"
+					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
 					>In Backlog</label
 				>
 			</div>
@@ -42,7 +42,7 @@
 				/>
 				<label
 					for="status-radio-in-progress"
-					class="w-full ml-2 p-2 text-sm font-medium text-neutral-900 rounded dark:text-neutral-300"
+					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200"
 					>In Progress</label
 				>
 			</div>
@@ -58,8 +58,7 @@
 				/>
 				<label
 					for="status-radio-done"
-					class="w-full ml-2 p-2 text-sm font-medium text-neutral-900 rounded dark:text-neutral-300"
-					>Done</label
+					class="w-full ml-2 p-2 text-md rounded text-neutral-700 dark:text-neutral-200">Done</label
 				>
 			</div>
 		</li>
