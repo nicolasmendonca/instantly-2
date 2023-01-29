@@ -6,6 +6,7 @@
 	<div>Nicolas Mendonca</div>
 	<img
 		class="w-10 h-10 rounded-full"
+		loading="lazy"
 		src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
 		alt="Rounded avatar"
 	/>
@@ -52,8 +53,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+					alt=""
 				/>
 				Jese Leos
 			</a>
@@ -65,8 +67,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+					alt=""
 				/>
 				Robert Gough
 			</a>
@@ -78,8 +81,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+					alt=""
 				/>
 				Bonnie Green
 			</a>
@@ -91,8 +95,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+					alt=""
 				/>
 				Leslie Livingston
 			</a>
@@ -104,8 +109,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
+					loading="lazy"
 					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					alt=""
 				/>
 				Michael Gough
 			</a>
@@ -117,8 +123,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+					alt=""
 				/>
 				Joseph Mcfall
 			</a>
@@ -130,8 +137,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+					alt=""
 				/>
 				Roberta Casas
 			</a>
@@ -143,8 +151,9 @@
 			>
 				<img
 					class="w-6 h-6 mr-2 rounded-full"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt="Jese image"
+					loading="lazy"
+					src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+					alt=""
 				/>
 				Neil Sims
 			</a>
