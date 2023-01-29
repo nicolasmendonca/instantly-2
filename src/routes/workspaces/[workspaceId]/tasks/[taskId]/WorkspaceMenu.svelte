@@ -31,7 +31,7 @@
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
-		<ul class="px-2 text-sm">
+		<ul class="mx-2 my-4 text-sm">
 			{#each tasks as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
@@ -50,7 +50,7 @@
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
-		<ul class="px-2 text-sm">
+		<ul class="mx-2 my-4 text-sm">
 			{#each tasks as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
@@ -69,7 +69,7 @@
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
-		<ul class="px-2 text-sm">
+		<ul class="mx-2 my-4 text-sm">
 			{#each tasks as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
