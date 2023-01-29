@@ -28,7 +28,7 @@
 	<div class="my-6" />
 
 	<section class="max-w-[48rem] mx-4 lg:mx-auto">
-		<h2 class="font-bold text-lg">Description</h2>
+		<h2 class="font-bold text-lg">Description:</h2>
 		<p class="text-lg font-light mx-auto text-neutral-300">
 			Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias et sequi illum non
 			consectetur culpa accusamus, neque earum velit nobis sapiente iure doloribus voluptatem cum
