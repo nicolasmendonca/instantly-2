@@ -16,7 +16,7 @@
 </script>
 
 <section class="bg-neutral-700 h-screen">
-	<h1 class="font-extrabold text-lg p-4">Workspace 1</h1>
+	<h1 class="font-extrabold text-lg p-4 h-16">Workspace 1</h1>
 	<section class="h-full overflow-y-auto scrollbar-hide">
 		<!-- In backlog -->
 		<WorkspaceMenuSectionDivider>

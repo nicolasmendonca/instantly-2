@@ -10,7 +10,7 @@
 
 <WorkspacesNav position="left">
 	<div class="relative flex">
-		<div class="fixed left-16 w-[25%]">
+		<div class="fixed left-16 w-[25%] border-r border-r-neutral-800">
 			<WorkspaceMenu />
 		</div>
 		<div class="ml-[25%] w-full">
