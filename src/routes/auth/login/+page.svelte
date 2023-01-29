@@ -5,6 +5,7 @@
 	import type { ActionData } from './$types';
 	import { classNames } from '$components/classNames';
 	import AppLogo from '$components/AppLogo.svelte';
+	import Button from '$components/Button.svelte';
 
 	export let form: ActionData;
 </script>
@@ -43,8 +44,13 @@
 							/>
 						</Label>
 					</div>
+					<a
+						href="/auth/forgot-password"
+						class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+						>Forgot password?</a
+					>
 					<div class="flex items-center justify-between">
-						<button type="submit" class="w-full {classNames.buttonPrimary}">Sign in</button>
+						<Button type="submit" className="w-full">Sign in</Button>
 					</div>
 
 					{#if form?.incorrect}

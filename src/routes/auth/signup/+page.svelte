@@ -5,6 +5,7 @@
 	import type { ActionData } from './$types';
 	import { classNames } from '$components/classNames';
 	import AppLogo from '$components/AppLogo.svelte';
+	import Button from '$components/Button.svelte';
 
 	export let form: ActionData;
 </script>
@@ -47,7 +48,7 @@
 						</Label>
 					</div>
 					<div class="flex items-center justify-between">
-						<button type="submit" class="w-full {classNames.buttonPrimary}">Sign up</button>
+						<Button type="submit" className="w-full">Sign up</Button>
 					</div>
 
 					{#if form?.success !== undefined && form.message}
