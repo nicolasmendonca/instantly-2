@@ -1,6 +1,4 @@
-import { env } from '$env/dynamic/public'
-
-const appBaseUrl = env.PUBLIC_APP_URL
+import { PUBLIC_APP_URL } from '$env/static/public'
 
 export const paths = {
   root: () => `/`,
@@ -14,5 +12,5 @@ export const paths = {
 } as const
 
 export function withBaseUrl(path: string) {
-  return `${appBaseUrl}${path}`
+  return `${PUBLIC_APP_URL}${path}`
 }
