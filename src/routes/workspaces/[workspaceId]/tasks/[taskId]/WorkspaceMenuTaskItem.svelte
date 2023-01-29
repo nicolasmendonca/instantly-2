@@ -11,7 +11,7 @@
 <li class="">
 	<a
 		href={`/workspaces/${workspaceId}/tasks/${task.id}`}
-		class="flex space-x-2 items-center rounded-lg hover:bg-slate-600 p-2"
+		class="flex space-x-2 items-center rounded-lg hover:bg-neutral-600 p-2"
 		><Hashtag />
 		<div class="text-ellipsis whitespace-nowrap overflow-hidden">
 			{task.name}

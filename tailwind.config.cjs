@@ -8,7 +8,8 @@ const config = {
 			colors: {
 				primary: colors.orange,
 				danger: colors.red,
-				success: colors.green
+				success: colors.green,
+				neutral: colors.slate
 			}
 		}
 	},

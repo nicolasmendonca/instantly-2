@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import TaskWidget from './TaskWidget.svelte';
 	import WorkspaceMenu from './WorkspaceMenu.svelte';
 	import WorkspacesNav from './WorkspacesNav.svelte';
+	import type { PageData } from './$types';
 </script>
 
 <WorkspacesNav position="left">

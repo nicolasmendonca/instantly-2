@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	export let position: 'left' | 'right' | 'top' | 'bottom' = 'left';
+	export let workspacesMainBgColor: string = '#ea580c';
 
 	$: activeWorkspaceId = Number($page.params.workspaceId);
-
-	export let position: 'left' | 'right' | 'top' | 'bottom' = 'left';
 	$: isVertical = ['left', 'right'].includes(position);
 	$: isHorizontal = ['top', 'bottom'].includes(position);
+
+	function getBgColorHexOnly(color: string) {
+		return color.replace('#', '');
+	}
 
 	export let workspacesLinks = Array.from({ length: 20 }, (_, i) => {
 		const id = i + 1;
@@ -13,7 +17,9 @@
 			id: id,
 			href: `/workspaces/${id}/tasks/1`,
 			label: `Long Workspace Name ${id}`,
-			imageSrc: `https://ui-avatars.com/api/?rounded=true&name=workspace+${id}&background=ea580c&color=ffffff`
+			imageSrc: `https://ui-avatars.com/api/?rounded=true&name=workspace+${id}&background=${getBgColorHexOnly(
+				workspacesMainBgColor
+			)}&color=ffffff`
 		};
 	});
 </script>
@@ -33,7 +39,7 @@
 	class:snap-y={isVertical}
 	class:snap-x={isHorizontal}
 	class:flex-col={isVertical}
-	class="fixed flex bg-slate-900 scrollbar-hide snap-mandatory break-avoid"
+	class="fixed flex bg-neutral-800 scrollbar-hide snap-mandatory break-avoid"
 >
 	{#each workspacesLinks as workspaceLink (workspaceLink.id)}
 		{@const tooltipId = `tooltip-dark-${workspaceLink.id}`}
