@@ -24,8 +24,8 @@
 			<WorkspaceMenuTaskStatusHeading>
 				<div class="flex items-center justify-between">
 					<div>In Backlog</div>
-					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
-						{tasks.length}
+					<div class="rounded-lg border border-neutral-600 font-light">
+						{tasks.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
@@ -43,8 +43,8 @@
 			<WorkspaceMenuTaskStatusHeading>
 				<div class="flex items-center justify-between">
 					<div>In Progress</div>
-					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
-						{tasks.length}
+					<div class="rounded-lg border border-neutral-600 font-light">
+						{tasks.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
@@ -62,8 +62,8 @@
 			<WorkspaceMenuTaskStatusHeading>
 				<div class="flex items-center justify-between">
 					<div>Done</div>
-					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
-						{tasks.length}
+					<div class="rounded-lg border border-neutral-600 font-light">
+						{tasks.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
