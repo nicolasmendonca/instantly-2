@@ -1,8 +1,6 @@
 <script lang="ts">
 	import WorkspaceMenuSectionDivider from './WorkspaceMenuSectionDivider.svelte';
-
 	import WorkspaceMenuTaskStatusHeading from './WorkspaceMenuTaskStatusHeading.svelte';
-
 	import WorkspaceMenuTaskItem from './WorkspaceMenuTaskItem.svelte';
 
 	import { page } from '$app/stores';
@@ -24,7 +22,12 @@
 		<WorkspaceMenuSectionDivider>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 			<WorkspaceMenuTaskStatusHeading>
-				In Backlog: {tasks.length}
+				<div class="flex items-center justify-between">
+					<div>In Backlog</div>
+					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
+						{tasks.length}
+					</div>
+				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
@@ -38,7 +41,12 @@
 		<WorkspaceMenuSectionDivider>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 			<WorkspaceMenuTaskStatusHeading>
-				In Progress: {tasks.length}
+				<div class="flex items-center justify-between">
+					<div>In Progress</div>
+					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
+						{tasks.length}
+					</div>
+				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
@@ -52,7 +60,12 @@
 		<WorkspaceMenuSectionDivider>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 			<WorkspaceMenuTaskStatusHeading>
-				Done: {tasks.length}
+				<div class="flex items-center justify-between">
+					<div>Done</div>
+					<div class="rounded-lg border border-neutral-600 px-2 py-1 font-light">
+						{tasks.length}
+					</div>
+				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
