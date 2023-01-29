@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import { zfd } from 'zod-form-data'
+import zfd from 'zod-form-data'
 import { z } from 'zod'
 import { fail } from '@sveltejs/kit';
 import { withBaseUrl, paths } from '$routes/paths';

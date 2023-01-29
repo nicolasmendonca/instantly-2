@@ -1,6 +1,6 @@
 import type { Actions } from './$types';
 import {z} from 'zod'
-import {zfd} from 'zod-form-data'
+import zfd from 'zod-form-data'
 import { fail } from '@sveltejs/kit';
 
 const passwordResetSchema = zfd.formData({
