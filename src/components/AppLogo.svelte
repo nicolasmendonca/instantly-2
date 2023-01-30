@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { paths } from '$routes/paths';
+	import { paths } from '$src/routes/paths';
 </script>
 
 <a

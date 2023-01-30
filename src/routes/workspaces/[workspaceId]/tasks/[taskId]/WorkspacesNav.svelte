@@ -1,27 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { generateWorkspaceAvatar } from '$src/application/avatar';
 	export let position: 'left' | 'right' | 'top' | 'bottom' = 'left';
-	export let workspacesMainBgColor: string = '#ea580c';
 
-	$: activeWorkspaceId = Number($page.params.workspaceId);
+	$: activeWorkspaceId = $page.params.workspaceId;
 	$: isVertical = ['left', 'right'].includes(position);
 	$: isHorizontal = ['top', 'bottom'].includes(position);
 
-	function getBgColorHexOnly(color: string) {
-		return color.replace('#', '');
-	}
-
-	export let workspacesLinks = Array.from({ length: 20 }, (_, i) => {
-		const id = i + 1;
-		return {
-			id: id,
-			href: `/workspaces/${id}/tasks/1`,
-			label: `Long Workspace Name ${id}`,
-			imageSrc: `https://ui-avatars.com/api/?rounded=true&name=workspace+${id}&background=${getBgColorHexOnly(
-				workspacesMainBgColor
-			)}&color=ffffff`
-		};
-	});
+	export let workspacesLinks: {
+		id: string;
+		href: string;
+		label: string;
+	}[];
 </script>
 
 <nav
@@ -46,7 +36,7 @@
 		>
 			<img
 				alt={workspaceLink.label}
-				src={workspaceLink.imageSrc}
+				src={generateWorkspaceAvatar(workspaceLink.label)}
 				class:grayscale={activeWorkspaceId !== workspaceLink.id}
 				class:opacity-70={activeWorkspaceId !== workspaceLink.id}
 				class:opacity-100={activeWorkspaceId === workspaceLink.id}

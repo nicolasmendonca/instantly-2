@@ -4,7 +4,7 @@
 	import AppLogo from '$components/AppLogo.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { paths } from '$routes/paths';
+	import { paths } from '$src/routes/paths';
 
 	onMount(() => {
 		setTimeout(() => {

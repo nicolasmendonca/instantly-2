@@ -7,7 +7,7 @@
 	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import type { ActionData } from './$types';
-	import { paths } from '$routes/paths';
+	import { paths } from '$src/routes/paths';
 
 	export let form: ActionData;
 

@@ -2,7 +2,7 @@ import type { Actions } from './$types';
 import zfd from 'zod-form-data'
 import { z } from 'zod'
 import { fail } from '@sveltejs/kit';
-import { paths, withBaseUrl } from '$routes/paths';
+import { paths, withBaseUrl } from '$src/routes/paths';
 
 const loginRequestSchema = zfd.formData({
   email: z.string(),

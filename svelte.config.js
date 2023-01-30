@@ -18,7 +18,7 @@ const config = {
 			edge: true
 		}),
 		alias: {
-			$routes: './src/routes',
+			$src: './src',
 			$components: './src/components'
 		}
 	}

@@ -6,7 +6,7 @@
 	import { classNames } from '$components/classNames';
 	import AppLogo from '$components/AppLogo.svelte';
 	import Button from '$components/Button.svelte';
-	import { paths } from '$routes/paths';
+	import { paths } from '$src/routes/paths';
 
 	export let form: ActionData;
 </script>
