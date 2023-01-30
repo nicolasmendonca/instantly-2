@@ -7,6 +7,7 @@ import type { Database } from './infrastructure/supabase/types'
 declare global {
 	namespace App {
 		interface Error {
+      supaError?: PostgrestError;
       message: string;
     }
 
