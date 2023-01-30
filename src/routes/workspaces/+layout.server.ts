@@ -2,12 +2,15 @@ import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
-  const { data: workspacesData, error: supaError, status } = await locals.supabase
+  const { data: workspacesData, error: supaError, status, statusText } = await locals.supabase
   .from('workspaces')
   .select('*')
 
   if (supaError) {
-    throw error(status, supaError)
+    console.error("🚀 ~ file: +layout.server.ts:10 ~ load ~ supaError", supaError)
+    throw error(status, {
+      message: statusText
+    })
   }
 
   return {
