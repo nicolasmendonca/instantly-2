@@ -1,32 +1,18 @@
 <script>
-	import { slide } from 'svelte/transition';
 	import AssigneeButtonDropdown from './AssigneeButtonDropdown.svelte';
 
 	import StatusButtonDropdown from './StatusButtonDropdown.svelte';
-
-	let metadataExpanded = true;
 </script>
 
-<header class="sticky top-0 bg-neutral-800 z-10">
-	<div class="max-w-[48rem] mx-4 lg:mx-auto h-16 flex items-center justify-between">
-		<h1 class="font-semibold text-2xl">Setup authentication with social accounts</h1>
-
-		<button
-			class="border border-neutral-500 rounded-lg h-7 w-7 hover:bg-neutral-600"
-			on:click={() => {
-				metadataExpanded = !metadataExpanded;
-			}}
-		>
-			<div class="transition-all" class:rotate-180={!metadataExpanded}>▲</div>
-		</button>
-	</div>
-	<hr class="h-px bg-gray-500 border-0 dark:bg-neutral-500" />
-</header>
-{#if metadataExpanded}
-	<div transition:slide class="sticky top-[calc(4rem_+_1px)] z-10 bg-neutral-700 pt-6 pb-10">
-		<section
-			class="max-w-[48rem] mx-4 lg:mx-auto text-left flex flex-col space-y-4 md:flex-row justify-between"
-		>
+<div class="bg-neutral-700 h-screen max-h-screen overflow-y-auto">
+	<header>
+		<div class="px-4 lg:mx-auto h-16 flex items-center justify-between">
+			<h1 class="font-semibold text-2xl">Setup authentication with social accounts</h1>
+		</div>
+		<hr class="h-px bg-gray-500 border-0 dark:bg-neutral-500" />
+	</header>
+	<div class="pt-6 pb-10 px-4">
+		<section class="mx-4 lg:mx-auto text-left flex flex-col space-y-4 justify-between">
 			<div class="flex items-center space-x-4 self-start md:self-baseline">
 				<div class="font-bold text-lg">Status:</div>
 				<StatusButtonDropdown />
@@ -39,7 +25,7 @@
 
 		<div class="my-6" />
 
-		<section class="max-w-[48rem] mx-4 lg:mx-auto">
+		<section class="mx-4 lg:mx-auto">
 			<h2 class="font-bold text-lg">Description:</h2>
 			<p class="text-lg font-light mx-auto text-neutral-300">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias et sequi illum non
@@ -52,4 +38,4 @@
 			</p>
 		</section>
 	</div>
-{/if}
+</div>

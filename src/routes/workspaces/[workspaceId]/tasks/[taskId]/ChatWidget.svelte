@@ -1,6 +1,6 @@
 <!-- Messages list -->
-<div>
-	<div class="mx-8 mt-8 mb-16 relative min-h-[calc(100vh_-_14rem)]">
+<div class="max-h-screen overflow-y-hidden">
+	<div class="px-8 mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pt-8">
 		<div class="flex items-start space-x-4">
 			<img
 				class="w-10 rounded-full mt-4"

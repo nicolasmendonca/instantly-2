@@ -9,11 +9,12 @@
 
 	let workspacePane: HTMLDivElement;
 	let taskPane: HTMLDivElement;
+	let chatPane: HTMLDivElement;
 
 	onMount(() => {
-		Split([workspacePane, taskPane], {
-			sizes: [25, 75],
-			minSize: [300, 400],
+		Split([workspacePane, chatPane, taskPane], {
+			sizes: [20, 50, 30],
+			minSize: [300, 400, 200],
 			cursor: 'col-resize'
 		});
 	});
@@ -23,20 +24,22 @@
 	<title>Setup authentication with social accounts</title>
 </svelte:head>
 
-<WorkspacesNav position="left">
-	<div class="relative flex">
-		<div
-			bind:this={workspacePane}
-			class="h-screen overflow-y-auto w-[25%] border-r border-r-neutral-800"
-		>
+<div class="flex">
+	<div class="w-16">
+		<WorkspacesNav />
+	</div>
+	<div class="flex w-screen h-screen overflow-x-hidden">
+		<div class="w-[20%]" bind:this={workspacePane}>
 			<WorkspaceMenu />
 		</div>
-		<div bind:this={taskPane} class="h-screen overflow-y-auto relative min-h-screen">
-			<TaskWidget />
+		<div class="flex-grow" bind:this={chatPane}>
 			<ChatWidget />
 		</div>
+		<div class="w-[70%]" bind:this={taskPane}>
+			<TaskWidget />
+		</div>
 	</div>
-</WorkspacesNav>
+</div>
 
 <style lang="postcss">
 	:global(.gutter) {
@@ -44,7 +47,7 @@
 		background-repeat: no-repeat;
 		background-position: 50%;
 
-		@apply bg-slate-800;
+		@apply bg-neutral-900;
 	}
 	:global(.gutter.gutter-horizontal) {
 		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');

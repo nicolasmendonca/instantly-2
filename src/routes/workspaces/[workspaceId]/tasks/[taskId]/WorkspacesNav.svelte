@@ -26,11 +26,6 @@
 
 <nav
 	aria-label="Workspaces navigation menu"
-	class:left-0={position === 'left'}
-	class:right-0={position === 'right'}
-	class:top-0={position === 'top'}
-	class:bottom-0={position === 'bottom'}
-	class:h-screen={isVertical}
 	class:overflow-y-auto={isVertical}
 	class:overflow-y-hidden={isHorizontal}
 	class:overflow-x-scroll={isHorizontal}
@@ -39,7 +34,7 @@
 	class:snap-y={isVertical}
 	class:snap-x={isHorizontal}
 	class:flex-col={isVertical}
-	class="fixed flex bg-neutral-800 scrollbar-hide snap-mandatory break-avoid"
+	class="flex h-screen bg-neutral-800 scrollbar-hide snap-mandatory"
 >
 	{#each workspacesLinks as workspaceLink (workspaceLink.id)}
 		{@const tooltipId = `tooltip-dark-${workspaceLink.id}`}
@@ -69,11 +64,3 @@
 		</a>
 	{/each}
 </nav>
-<div
-	class:ml-16={position === 'left'}
-	class:mr-16={position === 'right'}
-	class:mt-16={position === 'top'}
-	class:mb-16={position === 'bottom'}
->
-	<slot />
-</div>

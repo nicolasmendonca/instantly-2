@@ -15,9 +15,9 @@
 	$: workspaceId = Number($page.params.workspaceId);
 </script>
 
-<section class="bg-neutral-700 h-screen">
+<section class="bg-neutral-700">
 	<h1 class="font-extrabold text-lg p-4 h-16">Workspace 1</h1>
-	<section class="h-full overflow-y-auto scrollbar-hide">
+	<section class="h-[calc(100vh_-_4rem)] overflow-y-auto">
 		<!-- In backlog -->
 		<WorkspaceMenuSectionDivider>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
