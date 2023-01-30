@@ -6,6 +6,7 @@
 	import { classNames } from '$components/classNames';
 	import AppLogo from '$components/AppLogo.svelte';
 	import Button from '$components/Button.svelte';
+	import { paths } from '$routes/paths';
 
 	export let form: ActionData;
 </script>
@@ -42,10 +43,14 @@
 								required
 								class={classNames.textInput}
 							/>
-							<span class="font-extralight text-sm text-gray-400"
-								>Leave this field blank to sign in with a magic link</span
-							>
 						</Label>
+					</div>
+					<div class="flex justify-between">
+						<a
+							href={paths.auth.login()}
+							class="inline-block text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+							>Already have an account? Log in</a
+						>
 					</div>
 					<div class="flex items-center justify-between">
 						<Button type="submit" className="w-full">Sign up</Button>

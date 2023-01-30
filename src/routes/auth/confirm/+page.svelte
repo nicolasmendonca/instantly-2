@@ -4,10 +4,11 @@
 	import AppLogo from '$components/AppLogo.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { paths } from '$routes/paths';
 
 	onMount(() => {
 		setTimeout(() => {
-			goto('/workspaces');
+			goto(paths.workspaceTask('1', '1'));
 		}, 7000);
 	});
 </script>

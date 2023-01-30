@@ -6,6 +6,7 @@
 	import { classNames } from '$components/classNames';
 	import AppLogo from '$components/AppLogo.svelte';
 	import Button from '$components/Button.svelte';
+	import { paths } from '$routes/paths';
 
 	export let form: ActionData;
 </script>
@@ -44,11 +45,18 @@
 							/>
 						</Label>
 					</div>
-					<a
-						href="/auth/forgot-password"
-						class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-						>Forgot password?</a
-					>
+					<div class="flex justify-between">
+						<a
+							href={paths.auth.forgotPassword()}
+							class="inline-block text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+							>Forgot password?</a
+						>
+						<a
+							href={paths.auth.signup()}
+							class="inline-block text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+							>Create an account</a
+						>
+					</div>
 					<div class="flex items-center justify-between">
 						<Button type="submit" className="w-full">Sign in</Button>
 					</div>

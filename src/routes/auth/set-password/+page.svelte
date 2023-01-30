@@ -7,13 +7,14 @@
 	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import type { ActionData } from './$types';
+	import { paths } from '$routes/paths';
 
 	export let form: ActionData;
 
 	$: {
 		if (form?.success) {
 			setTimeout(() => {
-				goto('/workspaces');
+				goto(paths.workspaceTask('1', '1'));
 			}, 7000);
 		}
 	}
