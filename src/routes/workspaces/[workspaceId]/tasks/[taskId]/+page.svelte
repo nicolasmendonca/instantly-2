@@ -32,10 +32,10 @@
 		<div class="w-[20%]" bind:this={workspacePane}>
 			<WorkspaceMenu />
 		</div>
-		<div class="flex-grow" bind:this={chatPane}>
+		<div class="w-[50%]" bind:this={chatPane}>
 			<ChatWidget />
 		</div>
-		<div class="w-[70%]" bind:this={taskPane}>
+		<div class="w-[30%]" bind:this={taskPane}>
 			<TaskWidget />
 		</div>
 	</div>
