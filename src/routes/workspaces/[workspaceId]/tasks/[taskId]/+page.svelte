@@ -41,7 +41,7 @@
 	</div>
 	<div class="flex w-screen h-screen overflow-x-hidden">
 		<div class="w-[20%]" bind:this={workspacePane}>
-			<WorkspaceMenu />
+			<WorkspaceMenu tasks={data.tasks} />
 		</div>
 		<div class="w-[50%]" bind:this={chatPane}>
 			<ChatWidget />

@@ -2,13 +2,13 @@
 	import { page } from '$app/stores';
 	import Hashtag from '$components/svg/Hashtag.svelte';
 
-	export let workspaceId: number;
+	export let workspaceId: string;
 	export let task: {
-		id: number;
-		name: string;
+		id: string;
+		title: string;
 	};
 
-	$: isActiveTask = Number($page.params.taskId) === task.id;
+	$: isActiveTask = $page.params.taskId === task.id;
 </script>
 
 <li class="">
@@ -20,7 +20,7 @@
 		class:text-neutral-900={isActiveTask}
 		><Hashtag />
 		<div class="text-ellipsis whitespace-nowrap overflow-hidden">
-			{task.name}
+			{task.title}
 		</div>
 	</a>
 </li>

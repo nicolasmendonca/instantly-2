@@ -35,6 +35,55 @@ export interface Database {
           website?: string | null
         }
       }
+      tasks: {
+        Row: {
+          assignee: string | null
+          created_at: string
+          description: string | null
+          id: string
+          status: string
+          title: string
+          workspace_id: string
+        }
+        Insert: {
+          assignee?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          status: string
+          title: string
+          workspace_id: string
+        }
+        Update: {
+          assignee?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          status?: string
+          title?: string
+          workspace_id?: string
+        }
+      }
+      users_workspaces: {
+        Row: {
+          created_at: string
+          role: string | null
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          role?: string | null
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          role?: string | null
+          user_id?: string
+          workspace_id?: string
+        }
+      }
       workspaces: {
         Row: {
           created_at: string | null

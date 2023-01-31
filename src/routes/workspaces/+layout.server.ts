@@ -7,7 +7,6 @@ export const load = (async ({ locals }) => {
   .select('*')
 
   if (supaError) {
-    console.error("🚀 ~ file: +layout.server.ts:10 ~ load ~ supaError", supaError)
     throw error(status, {
       message: statusText,
       supaError,

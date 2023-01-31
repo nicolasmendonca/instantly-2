@@ -5,14 +5,16 @@
 
 	import { page } from '$app/stores';
 
-	let tasks = Array.from({ length: 20 }, (_, i) => {
-		const id = i + 1;
-		return {
-			id,
-			name: ` ${id} lorem ipsum dolor sit amet consectetur adipisicing elit. Ab numquam ea doloremque eum quaerat omnis obcaecati ducimus, rem, quis, officiis cupiditate dolore repellendus amet minima illo! Possimus sunt veritatis ad`
-		};
-	});
-	$: workspaceId = Number($page.params.workspaceId);
+	export let tasks: {
+		id: string;
+		status: string | undefined;
+		title: string;
+	}[];
+
+	$: tasksInBacklog = tasks.filter((task) => ['BACKLOG', undefined].includes(task.status));
+	$: tasksInProgress = tasks.filter((task) => ['IN_PROGRESS'].includes(task.status ?? ''));
+	$: tasksDone = tasks.filter((task) => ['DONE'].includes(task.status ?? ''));
+	$: workspaceId = $page.params.workspaceId;
 </script>
 
 <section class="bg-neutral-700">
@@ -25,14 +27,14 @@
 				<div class="flex items-center justify-between">
 					<div>In Backlog</div>
 					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasks.length} tasks
+						{tasksInBacklog.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
 		<ul class="mx-2 my-4 text-sm">
-			{#each tasks as task (task.id)}
+			{#each tasksInBacklog as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
 		</ul>
@@ -44,14 +46,14 @@
 				<div class="flex items-center justify-between">
 					<div>In Progress</div>
 					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasks.length} tasks
+						{tasksInProgress.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
 		<ul class="mx-2 my-4 text-sm">
-			{#each tasks as task (task.id)}
+			{#each tasksInProgress as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
 		</ul>
@@ -63,14 +65,14 @@
 				<div class="flex items-center justify-between">
 					<div>Done</div>
 					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasks.length} tasks
+						{tasksDone.length} tasks
 					</div>
 				</div>
 			</WorkspaceMenuTaskStatusHeading>
 			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 		</WorkspaceMenuSectionDivider>
 		<ul class="mx-2 my-4 text-sm">
-			{#each tasks as task (task.id)}
+			{#each tasksDone as task (task.id)}
 				<WorkspaceMenuTaskItem {task} {workspaceId} />
 			{/each}
 		</ul>
