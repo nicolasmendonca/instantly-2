@@ -14,8 +14,8 @@
 	$: {
 		if (form?.success) {
 			setTimeout(() => {
-				goto(paths.workspaceTask('1', '1'));
-			}, 7000);
+				goto(paths.workspaces());
+			}, 6000);
 		}
 	}
 </script>
