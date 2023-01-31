@@ -27,7 +27,7 @@
 <!-- Dropdown menu -->
 <div
 	bind:this={targetElement}
-	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-900 h-[26rem]"
+	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem]"
 >
 	<div class="p-3">
 		<label for="input-group-search" class="sr-only">Search</label>

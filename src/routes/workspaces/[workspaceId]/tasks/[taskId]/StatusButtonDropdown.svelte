@@ -22,7 +22,7 @@
 <div
 	bind:this={targetElement}
 	id="task-status-dropdown-select"
-	class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-900 dark:divide-neutral-600"
+	class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-800 dark:divide-neutral-600"
 >
 	<ul
 		class="p-3 space-y-1 text-md text-neutral-700 dark:text-neutral-200"

@@ -2,7 +2,7 @@
 	import WorkspaceMenuSectionDivider from './WorkspaceMenuSectionDivider.svelte';
 	import WorkspaceMenuTaskStatusHeading from './WorkspaceMenuTaskStatusHeading.svelte';
 	import WorkspaceMenuTaskItem from './WorkspaceMenuTaskItem.svelte';
-	import type { PageData } from '../$types';
+	import type { PageData } from './$types';
 
 	import { page } from '$app/stores';
 

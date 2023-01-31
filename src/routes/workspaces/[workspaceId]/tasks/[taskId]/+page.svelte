@@ -57,9 +57,15 @@
 		/* background-color: #eee; */
 		background-repeat: no-repeat;
 		background-position: 50%;
+		width: 6px !important;
 
 		@apply bg-neutral-900;
 	}
+
+	:global(.gutter:hover) {
+		@apply bg-neutral-600;
+	}
+
 	:global(.gutter.gutter-horizontal) {
 		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
 		cursor: col-resize;
