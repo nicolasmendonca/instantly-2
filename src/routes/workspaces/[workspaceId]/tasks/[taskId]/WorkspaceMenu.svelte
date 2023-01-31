@@ -2,79 +2,39 @@
 	import WorkspaceMenuSectionDivider from './WorkspaceMenuSectionDivider.svelte';
 	import WorkspaceMenuTaskStatusHeading from './WorkspaceMenuTaskStatusHeading.svelte';
 	import WorkspaceMenuTaskItem from './WorkspaceMenuTaskItem.svelte';
+	import type { PageData } from '../$types';
 
 	import { page } from '$app/stores';
 
-	export let tasks: {
-		id: string;
-		status: string | undefined;
-		title: string;
-	}[];
-
-	$: tasksInBacklog = tasks.filter((task) => ['BACKLOG', undefined].includes(task.status));
-	$: tasksInProgress = tasks.filter((task) => ['IN_PROGRESS'].includes(task.status ?? ''));
-	$: tasksDone = tasks.filter((task) => ['DONE'].includes(task.status ?? ''));
-	$: workspaceId = $page.params.workspaceId;
+	$: pageData = $page.data as PageData;
+	$: tasks = pageData.tasks;
+	$: taskStatus = pageData.taskStatus;
+	$: workspace = pageData.workspace;
 </script>
 
 <section class="bg-neutral-700">
-	<h1 class="font-extrabold text-lg p-4 h-16">Workspace 1</h1>
+	<h1 class="font-extrabold text-lg p-4 h-16">{workspace?.name}</h1>
 	<section class="h-[calc(100vh_-_4rem)] overflow-y-auto">
-		<!-- In backlog -->
-		<WorkspaceMenuSectionDivider>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-			<WorkspaceMenuTaskStatusHeading>
-				<div class="flex items-center justify-between">
-					<div>In Backlog</div>
-					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasksInBacklog.length} tasks
+		{#each taskStatus as taskStatusItem (taskStatusItem.id)}
+			{@const filteredTasks = tasks.filter((task) => task.status === taskStatusItem.id)}
+			<!-- In backlog -->
+			<WorkspaceMenuSectionDivider>
+				<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
+				<WorkspaceMenuTaskStatusHeading>
+					<div class="flex items-center justify-between">
+						<div>{taskStatusItem.label}</div>
+						<div class="rounded-lg border border-neutral-600 font-light">
+							{filteredTasks.length} tasks
+						</div>
 					</div>
-				</div>
-			</WorkspaceMenuTaskStatusHeading>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-		</WorkspaceMenuSectionDivider>
-		<ul class="mx-2 my-4 text-sm">
-			{#each tasksInBacklog as task (task.id)}
-				<WorkspaceMenuTaskItem {task} {workspaceId} />
-			{/each}
-		</ul>
-
-		<!-- In Progress -->
-		<WorkspaceMenuSectionDivider>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-			<WorkspaceMenuTaskStatusHeading>
-				<div class="flex items-center justify-between">
-					<div>In Progress</div>
-					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasksInProgress.length} tasks
-					</div>
-				</div>
-			</WorkspaceMenuTaskStatusHeading>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-		</WorkspaceMenuSectionDivider>
-		<ul class="mx-2 my-4 text-sm">
-			{#each tasksInProgress as task (task.id)}
-				<WorkspaceMenuTaskItem {task} {workspaceId} />
-			{/each}
-		</ul>
-
-		<!-- Done -->
-		<WorkspaceMenuSectionDivider>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-			<WorkspaceMenuTaskStatusHeading>
-				<div class="flex items-center justify-between">
-					<div>Done</div>
-					<div class="rounded-lg border border-neutral-600 font-light">
-						{tasksDone.length} tasks
-					</div>
-				</div>
-			</WorkspaceMenuTaskStatusHeading>
-			<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
-		</WorkspaceMenuSectionDivider>
-		<ul class="mx-2 my-4 text-sm">
-			{#each tasksDone as task (task.id)}
-				<WorkspaceMenuTaskItem {task} {workspaceId} />
-			{/each}
-		</ul>
+				</WorkspaceMenuTaskStatusHeading>
+				<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
+			</WorkspaceMenuSectionDivider>
+			<ul class="mx-2 my-4 text-sm">
+				{#each filteredTasks as task (task.id)}
+					<WorkspaceMenuTaskItem {task} workspaceId={workspace.id} />
+				{/each}
+			</ul>
+		{/each}
 	</section>
 </section>

@@ -35,13 +35,33 @@ export interface Database {
           website?: string | null
         }
       }
+      profiles_workspaces: {
+        Row: {
+          created_at: string
+          profile_id: string
+          role: string | null
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          profile_id: string
+          role?: string | null
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          profile_id?: string
+          role?: string | null
+          workspace_id?: string
+        }
+      }
       tasks: {
         Row: {
           assignee: string | null
           created_at: string
           description: string | null
           id: string
-          status: string
+          status: string | null
           title: string
           workspace_id: string
         }
@@ -50,7 +70,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: string
-          status: string
+          status?: string | null
           title: string
           workspace_id: string
         }
@@ -59,28 +79,28 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: string
-          status?: string
+          status?: string | null
           title?: string
           workspace_id?: string
         }
       }
-      users_workspaces: {
+      taskstatus: {
         Row: {
-          created_at: string
-          role: string | null
-          user_id: string
+          created_at: string | null
+          id: string
+          label: string | null
           workspace_id: string
         }
         Insert: {
-          created_at?: string
-          role?: string | null
-          user_id: string
+          created_at?: string | null
+          id?: string
+          label?: string | null
           workspace_id: string
         }
         Update: {
-          created_at?: string
-          role?: string | null
-          user_id?: string
+          created_at?: string | null
+          id?: string
+          label?: string | null
           workspace_id?: string
         }
       }

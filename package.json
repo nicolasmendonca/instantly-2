@@ -9,6 +9,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
+		"update-supabase-prod-types": "npx supabase gen types typescript --project-id \"qdgranddyzjenssyrsfo\" > src/infrastructure/supabase/types.ts",
 		"update-supabase-types": "npx supabase gen types typescript --project-id \"$SUPABASE_PROJECT_ID\" > src/infrastructure/supabase/types.ts",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write ."
