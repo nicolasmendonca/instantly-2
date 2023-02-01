@@ -5,17 +5,17 @@
 
 	import { workspaceStore } from '$src/application/stores/workspaceStore';
 	import { tasksGroupedByStatusStore } from '$src/application/stores/tasksGroupedByStatusStore';
+	import { slide } from 'svelte/transition';
 </script>
 
 {#await workspaceStore.load() then}
 	{#if $workspaceStore}
 		<section class="bg-neutral-700">
-			<h1 class="font-extrabold text-lg p-4 h-16">{$workspaceStore.name}</h1>
+			<h1 class="font-extrabold text-lg p-4">{$workspaceStore.name}</h1>
 			<section class="h-[calc(100vh_-_4rem)] overflow-y-auto">
 				{#await tasksGroupedByStatusStore.load() then}
 					{#if $tasksGroupedByStatusStore}
 						{#each $tasksGroupedByStatusStore as $statusWithTasks ($statusWithTasks.status.id)}
-							<!-- In backlog -->
 							<WorkspaceMenuSectionDivider>
 								<hr class="h-px bg-gray-200 border-0 dark:bg-neutral-500" />
 								<WorkspaceMenuTaskStatusHeading>
@@ -30,7 +30,9 @@
 							</WorkspaceMenuSectionDivider>
 							<ul class="mx-2 my-4 text-sm">
 								{#each $statusWithTasks.tasks as $task ($task.id)}
-									<WorkspaceMenuTaskItem task={$task} workspaceId={$workspaceStore.id} />
+									<div transition:slide>
+										<WorkspaceMenuTaskItem task={$task} workspaceId={$workspaceStore.id} />
+									</div>
 								{/each}
 							</ul>
 						{/each}

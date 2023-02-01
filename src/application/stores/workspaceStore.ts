@@ -1,13 +1,9 @@
-import { asyncWritable } from '@square/svelte-store'
-import { supabaseClient } from '../../infrastructure/supabase'
+import { asyncDerived } from '@square/svelte-store'
 import { workspaceIdStore } from './workspaceIdStore'
+import { workspacesStore } from './workspacesStore'
 
-export const workspaceStore = asyncWritable(
-  [workspaceIdStore],
-  async ([$workspaceId]) => supabaseClient
-    .from('workspaces')
-    .select('*')
-    .eq('id', $workspaceId)
-    .single()
-    .then(res => res.data)
+export const workspaceStore = asyncDerived(
+  [workspacesStore, workspaceIdStore],
+  async ([$workspacesList, $workspaceId]) => 
+    $workspacesList?.find(workspace => workspace.id === $workspaceId),
 )

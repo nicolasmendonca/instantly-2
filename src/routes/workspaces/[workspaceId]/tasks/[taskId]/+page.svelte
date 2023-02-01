@@ -1,62 +1,28 @@
 <script lang="ts">
-	import Split from 'split.js';
-	import { onMount } from 'svelte';
+	import { tasksGroupedByStatusStore } from '$src/application/stores/tasksGroupedByStatusStore';
+	import { taskStatusesStore } from '$src/application/stores/taskStatusesStore';
+	import { taskStore } from '$src/application/stores/taskStore';
+	import { workspacesStore } from '$src/application/stores/workspacesStore';
+	import { fade } from 'svelte/transition';
+	import Spinner from '$src/components/Spinner.svelte';
+	import LoadedTaskPage from './LoadedTaskPage.svelte';
 
-	import ChatWidget from './ChatWidget.svelte';
-	import TaskWidget from './TaskWidget.svelte';
-	import WorkspaceMenu from './WorkspaceMenu.svelte';
-	import WorkspacesNav from './WorkspacesNav.svelte';
+	const pageDependencies = [
+		tasksGroupedByStatusStore,
+		taskStore,
+		workspacesStore,
+		taskStatusesStore
+	] as const;
 
-	let workspacePane: HTMLDivElement;
-	let taskPane: HTMLDivElement;
-	let chatPane: HTMLDivElement;
-
-	onMount(() => {
-		Split([workspacePane, chatPane, taskPane], {
-			sizes: [20, 50, 30],
-			minSize: [300, 400, 200],
-			cursor: 'col-resize'
-		});
-	});
+	$: pagePromise = pageDependencies.map((store) => store.load());
 </script>
 
-<svelte:head>
-	<title>Setup authentication with social accounts</title>
-</svelte:head>
-
-<div class="flex">
-	<div class="w-16">
-		<WorkspacesNav />
+{#await Promise.all(pagePromise)}
+	<div class="flex h-screen w-screen items-center justify-center overflow-x-hidden" transition:fade>
+		<Spinner />
 	</div>
-	<div class="flex w-screen h-screen overflow-x-hidden">
-		<div class="w-[20%]" bind:this={workspacePane}>
-			<WorkspaceMenu />
-		</div>
-		<div class="w-[50%]" bind:this={chatPane}>
-			<ChatWidget />
-		</div>
-		<div class="w-[30%]" bind:this={taskPane}>
-			<TaskWidget />
-		</div>
+{:then}
+	<div transition:fade class="overflow-x-hidden">
+		<LoadedTaskPage />
 	</div>
-</div>
-
-<style lang="postcss">
-	:global(.gutter) {
-		/* background-color: #eee; */
-		background-repeat: no-repeat;
-		background-position: 50%;
-		width: 6px !important;
-
-		@apply bg-neutral-900;
-	}
-
-	:global(.gutter:hover) {
-		@apply bg-neutral-600;
-	}
-
-	:global(.gutter.gutter-horizontal) {
-		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-		cursor: col-resize;
-	}
-</style>
+{/await}

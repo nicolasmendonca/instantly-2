@@ -8,7 +8,7 @@
 	{#await taskStore.load() then}
 		{#if $taskStore}
 			<header>
-				<div class="px-4 lg:mx-auto h-16 flex items-center justify-between">
+				<div class="px-4 lg:mx-auto py-4 flex items-center justify-between">
 					<h1 class="font-semibold text-2xl">{$taskStore.title}</h1>
 				</div>
 				<hr class="h-px bg-gray-500 border-0 dark:bg-neutral-500" />
