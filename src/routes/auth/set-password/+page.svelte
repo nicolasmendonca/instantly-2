@@ -14,7 +14,7 @@
 	$: {
 		if (form?.success) {
 			setTimeout(() => {
-				goto(paths.workspaces());
+				goto(paths.root());
 			}, 6000);
 		}
 	}

@@ -8,7 +8,7 @@
 
 	onMount(() => {
 		setTimeout(() => {
-			goto(paths.workspaces());
+			goto(paths.root());
 		}, 6000);
 	});
 </script>
