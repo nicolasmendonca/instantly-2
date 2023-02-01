@@ -1,56 +1,40 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { generateWorkspaceAvatar } from '$src/application/avatar';
-	export let position: 'left' | 'right' | 'top' | 'bottom' = 'left';
+	import { workspacesStore } from '$src/application/stores/workspacesStore';
+	import { paths } from '$src/routes/paths';
+	import Tooltip from '../../../../../components/Tooltip.svelte';
 
 	$: activeWorkspaceId = $page.params.workspaceId;
-	$: isVertical = ['left', 'right'].includes(position);
-	$: isHorizontal = ['top', 'bottom'].includes(position);
-
-	export let workspacesLinks: {
-		id: string;
-		href: string;
-		label: string;
-	}[];
 </script>
 
 <nav
 	aria-label="Workspaces navigation menu"
-	class:overflow-y-auto={isVertical}
-	class:overflow-y-hidden={isHorizontal}
-	class:overflow-x-scroll={isHorizontal}
-	class:overflow-x-hidden={isVertical}
-	class:w-screen={isHorizontal}
-	class:snap-y={isVertical}
-	class:snap-x={isHorizontal}
-	class:flex-col={isVertical}
-	class="flex h-screen bg-neutral-800 scrollbar-hide snap-mandatory"
+	class="flex h-screen bg-neutral-800 scrollbar-hide snap-mandatory overflow-y-auto overflow-x-hidden snap-y flex-col"
 >
-	{#each workspacesLinks as workspaceLink (workspaceLink.id)}
-		{@const tooltipId = `tooltip-dark-${workspaceLink.id}`}
-		<a
-			href={workspaceLink.href}
-			class="shrink-0 block relative p-2 group snap-start"
-			data-tooltip-target={tooltipId}
-			data-tooltip-placement="top"
-		>
-			<img
-				alt={workspaceLink.label}
-				src={generateWorkspaceAvatar(workspaceLink.label)}
-				class:grayscale={activeWorkspaceId !== workspaceLink.id}
-				class:opacity-70={activeWorkspaceId !== workspaceLink.id}
-				class:opacity-100={activeWorkspaceId === workspaceLink.id}
-				class:grayscale-0={activeWorkspaceId === workspaceLink.id}
-				class="w-12 h-12 aspect-square rounded-full mx-auto transition-all group-hover:scale-125 grayscale hover:grayscale-0 hover:opacity-100"
-			/>
-			<div
-				id={tooltipId}
-				role="tooltip"
-				class="absolute text-center z-10 invisible inline-block py-2 text-xs font-medium overflow-ellipsis whitespace-pre-wrap w-16 text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-			>
-				{workspaceLink.label}
-				<div class="tooltip-arrow" data-popper-arrow />
-			</div>
-		</a>
-	{/each}
+	{#await workspacesStore.load() then}
+		{#if $workspacesStore}
+			{#each $workspacesStore as $workspace ($workspace.id)}
+				{@const tooltipId = `tooltip-dark-${$workspace.id}`}
+				<a
+					href={paths.workspace($workspace.id)}
+					class="shrink-0 block relative p-2 group snap-start"
+					data-tooltip-target={tooltipId}
+					data-tooltip-placement="top"
+				>
+					<Tooltip label={$workspace.name}>
+						<img
+							alt={$workspace.name}
+							src={generateWorkspaceAvatar($workspace.name)}
+							class:grayscale={activeWorkspaceId !== $workspace.id}
+							class:opacity-70={activeWorkspaceId !== $workspace.id}
+							class:opacity-100={activeWorkspaceId === $workspace.id}
+							class:grayscale-0={activeWorkspaceId === $workspace.id}
+							class="w-12 h-12 aspect-square rounded-full mx-auto transition-all group-hover:scale-125 grayscale hover:grayscale-0 hover:opacity-100"
+						/>
+					</Tooltip>
+				</a>
+			{/each}
+		{/if}
+	{/await}
 </nav>

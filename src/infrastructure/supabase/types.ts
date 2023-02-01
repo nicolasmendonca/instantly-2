@@ -61,7 +61,7 @@ export interface Database {
           created_at: string
           description: string | null
           id: string
-          status: string | null
+          status: string
           title: string
           workspace_id: string
         }
@@ -70,7 +70,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: string
-          status?: string | null
+          status: string
           title: string
           workspace_id: string
         }
@@ -79,7 +79,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: string
-          status?: string | null
+          status?: string
           title?: string
           workspace_id?: string
         }
@@ -88,19 +88,19 @@ export interface Database {
         Row: {
           created_at: string | null
           id: string
-          label: string | null
+          label: string
           workspace_id: string
         }
         Insert: {
           created_at?: string | null
           id?: string
-          label?: string | null
+          label: string
           workspace_id: string
         }
         Update: {
           created_at?: string | null
           id?: string
-          label?: string | null
+          label?: string
           workspace_id?: string
         }
       }
@@ -108,19 +108,19 @@ export interface Database {
         Row: {
           created_at: string | null
           id: string
-          name: string | null
+          name: string
           owner: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
-          name?: string | null
+          name: string
           owner?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
-          name?: string | null
+          name?: string
           owner?: string | null
         }
       }

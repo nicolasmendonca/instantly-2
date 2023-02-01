@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Split from 'split.js';
 	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
 
 	import ChatWidget from './ChatWidget.svelte';
 	import TaskWidget from './TaskWidget.svelte';
@@ -11,16 +10,6 @@
 	let workspacePane: HTMLDivElement;
 	let taskPane: HTMLDivElement;
 	let chatPane: HTMLDivElement;
-
-	export let data: PageData;
-
-	$: workspacesLinks = data.workspaces.map((workspace) => {
-		return {
-			id: workspace.id,
-			href: `/workspaces/${workspace.id}`,
-			label: workspace.name!
-		};
-	});
 
 	onMount(() => {
 		Split([workspacePane, chatPane, taskPane], {
@@ -37,7 +26,7 @@
 
 <div class="flex">
 	<div class="w-16">
-		<WorkspacesNav {workspacesLinks} />
+		<WorkspacesNav />
 	</div>
 	<div class="flex w-screen h-screen overflow-x-hidden">
 		<div class="w-[20%]" bind:this={workspacePane}>

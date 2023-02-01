@@ -34,7 +34,7 @@
 							<li>
 								<div class="rounded hover:bg-neutral-100 dark:hover:bg-neutral-600">
 									<label
-										class="flex items-center cursor-pointer w-full text-md rounded text-neutral-700 dark:text-neutral-200"
+										class="flex items-center cursor-pointer w-full text-md rounded text-neutral-700 dark:text-neutral-200 select-none"
 									>
 										<input
 											type="radio"
