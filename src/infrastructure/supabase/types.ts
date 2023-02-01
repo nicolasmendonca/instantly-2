@@ -57,29 +57,29 @@ export interface Database {
       }
       tasks: {
         Row: {
-          assignee: string | null
+          assignee_id: string | null
           created_at: string
           description: string | null
           id: string
-          status: string
+          status_id: string
           title: string
           workspace_id: string
         }
         Insert: {
-          assignee?: string | null
+          assignee_id?: string | null
           created_at?: string
           description?: string | null
           id?: string
-          status: string
+          status_id: string
           title: string
           workspace_id: string
         }
         Update: {
-          assignee?: string | null
+          assignee_id?: string | null
           created_at?: string
           description?: string | null
           id?: string
-          status?: string
+          status_id?: string
           title?: string
           workspace_id?: string
         }

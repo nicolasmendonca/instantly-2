@@ -9,7 +9,7 @@ export const tasksStore = asyncWritable(
       .select(`
         id,
         title,
-        status
+        status_id
       `)
       .eq('workspace_id', $workspaceId)
       .then(res => res.data),

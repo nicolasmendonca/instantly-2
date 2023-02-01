@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Dropdown } from 'flowbite';
 	import { taskStatusesStore } from '$src/application/stores/taskStatusesStore';
-	import { taskStore, currentTaskStatusStore } from '$src/application/stores/taskStore';
+	import { taskStore } from '$src/application/stores/taskStore';
+	import { currentTaskStatusStore } from '$src/application/stores/currentTaskStatusStore';
 	import { tasksStore } from '$src/application/stores/tasksStore';
 
 	let triggerElement: HTMLButtonElement;
@@ -46,7 +47,7 @@
 													if (!value || !$currentTaskStatusStore) return value;
 													return {
 														...value,
-														status: $taskStatus.id
+														status_id: $taskStatus.id
 													};
 												});
 												// Update the task in the list
@@ -56,7 +57,7 @@
 														if (task.id === $taskStore?.id) {
 															return {
 																...task,
-																status: $taskStatus.id
+																status_id: $taskStatus.id
 															};
 														}
 														return task;

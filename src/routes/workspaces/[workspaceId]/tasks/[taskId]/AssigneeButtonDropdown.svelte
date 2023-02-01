@@ -1,35 +1,46 @@
 <script lang="ts">
 	import { Dropdown } from 'flowbite';
-	import { onMount } from 'svelte';
+	import { workspaceMembersStore } from '$src/application/stores/workspaceMembersStore';
+	import { taskStore } from '$src/application/stores/taskStore';
 
 	let triggerElement: HTMLButtonElement;
 	let targetElement: HTMLDivElement;
 
-	onMount(() => {
-		new Dropdown(targetElement, triggerElement);
-	});
+	$: {
+		if ($taskStore) {
+			new Dropdown(targetElement, triggerElement, {
+				onShow: () => {
+					workspaceMembersStore.load();
+				}
+			});
+		}
+	}
 </script>
 
-<button
-	bind:this={triggerElement}
-	type="button"
-	class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
->
-	<div>Nicolas Mendonca</div>
-	<img
-		class="w-10 h-10 rounded-full"
-		loading="lazy"
-		src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-		alt="Rounded avatar"
-	/>
-</button>
+{#await taskStore.load() then}
+	{#if $taskStore}
+		<button
+			bind:this={triggerElement}
+			type="button"
+			class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
+		>
+			<div>{$taskStore.profiles?.full_name}</div>
+			<img
+				class="w-10 h-10 rounded-full"
+				loading="lazy"
+				src={$taskStore.profiles?.avatar_url}
+				alt="Rounded avatar"
+			/>
+		</button>
+	{/if}
+{/await}
 
 <!-- Dropdown menu -->
 <div
 	bind:this={targetElement}
-	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem]"
+	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem] overflow-y-auto"
 >
-	<div class="p-3">
+	<!-- <div class="p-3">
 		<label for="input-group-search" class="sr-only">Search</label>
 		<div class="relative">
 			<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -53,122 +64,51 @@
 				placeholder="Search user"
 			/>
 		</div>
-	</div>
-	<ul
-		class="h-full py-2 overflow-y-auto text-neutral-700 dark:text-neutral-200"
-		aria-labelledby="dropdownUsersButton"
-	>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
-					alt=""
-				/>
-				Jese Leos
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-					alt=""
-				/>
-				Robert Gough
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-					alt=""
-				/>
-				Bonnie Green
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-					alt=""
-				/>
-				Leslie Livingston
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-					alt=""
-				/>
-				Michael Gough
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
-					alt=""
-				/>
-				Joseph Mcfall
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-					alt=""
-				/>
-				Roberta Casas
-			</a>
-		</li>
-		<li>
-			<a
-				href="#"
-				class="flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-			>
-				<img
-					class="w-6 h-6 mr-2 rounded-full"
-					loading="lazy"
-					src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-					alt=""
-				/>
-				Neil Sims
-			</a>
-		</li>
-	</ul>
+	</div> -->
+	{#if $workspaceMembersStore}
+		<ul
+			class="h-full py-2 overflow-y-auto text-neutral-700 dark:text-neutral-200"
+			aria-labelledby="dropdownUsersButton"
+		>
+			{#each $workspaceMembersStore as $workspaceMember}
+				{#if $workspaceMember && $workspaceMember.profiles}
+					<li>
+						<button
+							on:click={() => {
+								taskStore.update((prevValue) => ({
+									...prevValue,
+									assignee_id: $workspaceMember.profiles.id,
+									profiles: $workspaceMember.profiles
+								}));
+							}}
+							class="flex items-center px-4 py-2 w-full hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
+						>
+							{#if $workspaceMember.profiles.id === $taskStore.assignee_id}
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+									class="w-6 h-6 mr-2 rounded-full text-primary-500"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							{:else}
+								<img
+									class="w-6 h-6 mr-2 rounded-full"
+									loading="lazy"
+									src={$workspaceMember.profiles.avatar_url}
+									alt=""
+								/>
+							{/if}
+							{$workspaceMember.profiles.full_name}
+						</button>
+					</li>
+				{/if}
+			{/each}
+		</ul>
+	{/if}
 </div>
