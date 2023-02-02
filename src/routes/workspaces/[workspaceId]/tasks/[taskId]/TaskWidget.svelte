@@ -2,6 +2,7 @@
 	import { taskStore } from '$src/application/stores/taskStore';
 	import AssigneeButtonDropdown from './AssigneeButtonDropdown.svelte';
 	import StatusButtonDropdown from './StatusButtonDropdown.svelte';
+	import TaskDescription from './TaskDescription.svelte';
 </script>
 
 <div class="bg-neutral-700 h-screen max-h-screen overflow-y-auto">
@@ -29,10 +30,11 @@
 
 				{#if $taskStore.description}
 					<section class="mx-4 lg:mx-auto">
-						<h2 class="font-bold text-lg">Description:</h2>
-						<p class="text-lg font-light mx-auto text-neutral-300">
+						<h2 class="font-bold text-lg mb-2">Description:</h2>
+						<TaskDescription />
+						<!-- <p class="text-lg font-light mx-auto text-neutral-300">
 							{$taskStore.description}
-						</p>
+						</p> -->
 					</section>
 				{/if}
 			</div>
