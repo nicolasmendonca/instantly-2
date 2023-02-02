@@ -41,6 +41,7 @@ export const taskStore = asyncWritable(
         .update({
           assignee_id: updatedTask.assignee_id,
           status_id: updatedTask.status_id,
+          description: updatedTask.description,
         })
         .eq('id', $taskId)
         .eq('workspace_id', $workspaceId)

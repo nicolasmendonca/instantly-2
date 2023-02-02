@@ -28,15 +28,13 @@
 
 				<div class="my-6" />
 
-				{#if $taskStore.description}
-					<section class="mx-4 lg:mx-auto">
-						<h2 class="font-bold text-lg mb-2">Description:</h2>
-						<TaskDescription />
-						<!-- <p class="text-lg font-light mx-auto text-neutral-300">
+				<section class="mx-4 lg:mx-auto">
+					<h2 class="font-bold text-lg mb-2">Description:</h2>
+					<TaskDescription />
+					<!-- <p class="text-lg font-light mx-auto text-neutral-300">
 							{$taskStore.description}
 						</p> -->
-					</section>
-				{/if}
+				</section>
 			</div>
 		{/if}
 	{/await}

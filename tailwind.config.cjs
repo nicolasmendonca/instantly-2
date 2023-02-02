@@ -14,7 +14,11 @@ const config = {
 		}
 	},
 
-	plugins: [require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
+	plugins: [
+		require('flowbite/plugin'),
+		require('tailwind-scrollbar-hide'),
+		require('@tailwindcss/typography')
+	],
 	darkMode: 'class'
 };
 
