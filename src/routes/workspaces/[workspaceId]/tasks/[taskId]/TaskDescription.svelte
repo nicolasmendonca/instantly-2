@@ -6,8 +6,6 @@
 	// @ts-ignore
 	import Paragraph from '@editorjs/paragraph';
 	// @ts-ignore
-	import Warning from '@editorjs/warning';
-	// @ts-ignore
 	import InlineCode from '@editorjs/inline-code';
 	// @ts-ignore
 	import CodeBox from '@bomdi/codebox';
@@ -45,10 +43,6 @@
 				},
 				paragraph: {
 					class: Paragraph,
-					inlineToolbar: true
-				},
-				warning: {
-					class: Warning,
 					inlineToolbar: true
 				},
 				inlineCode: {

@@ -12,7 +12,7 @@
 	let chatPane: HTMLDivElement;
 
 	onMount(() => {
-		Split([workspacePane, chatPane, taskPane], {
+		const split = Split([workspacePane, chatPane, taskPane], {
 			sizes: [20, 50, 30],
 			minSize: [200, 400, 300],
 			cursor: 'col-resize',
