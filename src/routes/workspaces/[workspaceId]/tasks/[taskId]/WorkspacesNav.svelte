@@ -3,7 +3,7 @@
 	import { generateWorkspaceAvatar } from '$src/application/avatar';
 	import { workspacesStore } from '$src/application/stores/workspacesStore';
 	import { paths } from '$src/routes/paths';
-	import Tooltip from '../../../../../components/Tooltip.svelte';
+	import Tooltip from '$src/components/Tooltip.svelte';
 
 	$: activeWorkspaceId = $page.params.workspaceId;
 </script>

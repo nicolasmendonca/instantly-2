@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { supabaseClient } from '../infrastructure/supabase';
+	import { supabaseClient } from '$src/infrastructure/supabase';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import '../app.postcss';
+	import '$src/app.postcss';
 
 	onMount(() => {
 		const {

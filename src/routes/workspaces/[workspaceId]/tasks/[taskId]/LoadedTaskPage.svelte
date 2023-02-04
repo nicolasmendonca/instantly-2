@@ -26,13 +26,13 @@
 		<WorkspacesNav />
 	</div>
 	<div class="flex w-screen h-screen overflow-x-hidden">
-		<div class="w-[20%]" bind:this={workspacePane}>
+		<div class="w-[20%] overflow-y-hidden" bind:this={workspacePane}>
 			<WorkspaceMenu />
 		</div>
-		<div class="w-[50%]" bind:this={chatPane}>
+		<div class="w-[50%] overflow-y-hidden" bind:this={chatPane}>
 			<ChatWidget />
 		</div>
-		<div class="w-[30%]" bind:this={taskPane}>
+		<div class="w-[30%] overflow-y-hidden" bind:this={taskPane}>
 			<TaskWidget />
 		</div>
 	</div>

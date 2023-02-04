@@ -1,6 +1,6 @@
 import { asyncWritable } from '@square/svelte-store'
 import { z } from 'zod'
-import { supabaseClient } from '../../infrastructure/supabase'
+import { supabaseClient } from '$src/infrastructure/supabase'
 import { workspaceIdStore } from './workspaceIdStore'
 
 export const workspaceMemberSchema = z.array(z.object({
