@@ -58,7 +58,7 @@
 <!-- Messages list -->
 <div class="max-h-screen overflow-y-hidden">
 	<!-- Container -->
-	<div class="px-8 mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pt-8">
+	<div class="mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pt-8">
 		{#if $chatMessagesStore}
 			{#each $chatMessagesStore as message, messageIndex (message.id)}
 				<ChatBubble

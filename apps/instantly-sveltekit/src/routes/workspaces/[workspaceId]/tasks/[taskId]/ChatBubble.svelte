@@ -13,7 +13,7 @@
 
 <div
 	class:pb-2={!includeSenderInfo}
-	class="flex items-start space-x-4 group relative w-full transition-all"
+	class="px-8 flex items-start space-x-4 group relative w-full transition-all hover:bg-neutral-900 hover:bg-opacity-40 rounded-lg"
 >
 	<!-- Avatar -->
 	{#if includeSenderInfo}
@@ -37,7 +37,7 @@
 				<div class="text-primary-500">
 					{message.senderProfile.fullName}
 				</div>
-				<div class="relative text-xs text-neutral-500 font-semibold pt-1">
+				<div class="relative text-xs text-neutral-500 font-semibold pt-2">
 					{formatter.format(message.createdAt)}
 				</div>
 			</div>
