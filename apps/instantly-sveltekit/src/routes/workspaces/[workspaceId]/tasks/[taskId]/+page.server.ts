@@ -1,5 +1,5 @@
+import { InstantlySupabaseClient } from 'instantly-supabase-client';
 import { z } from 'zod';
-import { handleSupabaseError } from '$src/application/handleSupabaseError';
 import type { Actions } from './$types';
 import zfd from 'zod-form-data';
 
@@ -10,15 +10,12 @@ const formDataSchema = zfd.formData({
 export const actions = {
   sendMessage: async ({ locals, params, request }) => {
     const { text } = formDataSchema.parse(await request.formData())
-    const supabaseInsertPromise = locals.supabase
-      .from('messages')
-      .insert({
-        task_id: params.taskId,
-        workspace_id: params.workspaceId,
-        sender_id: locals.session!.user.id,
-        text
-      })
-    handleSupabaseError(await supabaseInsertPromise)
+    const instantlyClient = new InstantlySupabaseClient(locals.supabase)
+    await instantlyClient.sendMessage({
+      taskId: params.taskId,
+      workspaceId: params.workspaceId,
+      text,
+    })
 
     return {
       success: true,

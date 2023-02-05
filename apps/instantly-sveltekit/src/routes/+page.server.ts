@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { InstantlySupabaseClient } from 'instantly-supabase-client';
 import type { PageServerLoad } from './$types';
 import { paths } from './paths';
 
@@ -7,13 +8,15 @@ export const load = (async ({ locals }) => {
     throw redirect(302, paths.auth.login())
   }
 
+  const instantlySupabaseClient = new InstantlySupabaseClient(locals.supabase)
+  
   const [
-    {data: workspaces},
-    {data: tasks}
+    workspaceId,
+    taskId
   ] = await Promise.all([
-    locals.supabase.from('workspaces').select('*').limit(1),
-    locals.supabase.from('tasks').select('*').limit(1),
+    instantlySupabaseClient.getFirstWorkspaceId(),
+    instantlySupabaseClient.getFirstTaskId(),
   ])
+  throw redirect(302, paths.workspaceTask(workspaceId, taskId));
 
-  throw redirect(302, paths.workspaceTask(workspaces?.[0].id ?? '', tasks?.[0].id ?? ''));
 }) satisfies PageServerLoad;

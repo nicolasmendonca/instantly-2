@@ -1,13 +1,15 @@
 import type { SupabaseClient as SupabaseClientJs } from '@supabase/supabase-js'
 import { getTaskSupabaseSchema } from './supabase-schemas/getTask.supabase-schema';
+import { Database } from './types/__generated';
 
 export class InstantlySupabaseClient {
-  public client: SupabaseClientJs;
+  public client: SupabaseClientJs<Database>;
 
   constructor(supabaseClient: SupabaseClientJs) {
     this.client = supabaseClient
   }
 
+  // AUTH --------------------------------------------------------------
   async getAuthUser() {
     return this.client.auth.getSession().then(res => res.data.session?.user)
   }
@@ -32,6 +34,28 @@ export class InstantlySupabaseClient {
     })
     if (error) throw error;
     return data;
+  }
+
+  onAuthStateChange(callback: () => void) {
+    return this.client.auth.onAuthStateChange(callback)
+  }
+
+  // WORKSPACES ---------------------------------------------------------------
+
+  // For redirection purposes
+  async getFirstWorkspaceId() {
+    const { data, error } = await this.client.from('workspaces').select('id').limit(1)
+    if (error) throw error;
+    return data[0].id
+  }
+
+  // TASKS --------------------------------------------------------------------
+
+  // For redirection purposes
+  async getFirstTaskId() {
+    const { data, error } = await this.client.from('tasks').select('id').limit(1)
+    if (error) throw error;
+    return data[0].id
   }
   
   async getTask(taskId: string) {
@@ -62,4 +86,21 @@ export class InstantlySupabaseClient {
         }
       })
   }
+
+  // MESSAGES -----------------------------------------------------------------
+  async sendMessage({ taskId, workspaceId, text }: { taskId: string, workspaceId: string, text: string }) {
+    const user = await this.getAuthUser()
+    if (!user) throw new UserNotAuthenticatedError()
+    const { error } = await this.client
+      .from('messages')
+      .insert({
+        task_id: taskId,
+        workspace_id: workspaceId,
+        sender_id: user.id,
+        text
+      })
+    if (error) throw error;
+  }
 }
+
+class UserNotAuthenticatedError extends Error {}
