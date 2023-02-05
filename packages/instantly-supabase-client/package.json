@@ -1,0 +1,27 @@
+{
+  "name": "instantly-supabase-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "./index.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "update-supabase-types": "npx supabase gen types typescript --project-id \"qdgranddyzjenssyrsfo\" > ./types/__generated.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.4.1",
+    "supabase": ">=1.8.1",
+    "tsconfig": "workspace:*",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^4.9.3"
+  }
+}
