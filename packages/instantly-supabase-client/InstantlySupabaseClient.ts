@@ -1,7 +1,10 @@
 import type { SupabaseClient as SupabaseClientJs } from '@supabase/supabase-js'
+import { getMessagesSupabaseSchema } from './supabase-schemas/getMessages.supabase-schema';
 import { getTaskSupabaseSchema } from './supabase-schemas/getTask.supabase-schema';
 import { getWorkspaceProfilesSupabaseSchema } from './supabase-schemas/getWorkspaceProfiles.supabase-schema';
+import { messageSubscriptionSupabaseSchema } from './supabase-schemas/messageSubscription.supabase-schema';
 import { Database } from './types/__generated';
+
 
 export class InstantlySupabaseClient {
   public client: SupabaseClientJs<Database>;
@@ -202,16 +205,85 @@ export class InstantlySupabaseClient {
   async sendMessage({ taskId, workspaceId, text }: { taskId: string, workspaceId: string, text: string }) {
     const user = await this.getAuthUser()
     if (!user) throw new UserNotAuthenticatedError()
+    const profile = await this.getProfile(user.id)
     const { error } = await this.client
       .from('messages')
       .insert({
         task_id: taskId,
         workspace_id: workspaceId,
-        sender_id: user.id,
+        sender_id: profile.id,
+        sender_full_name: profile.fullName!,
+        sender_avatar_url: profile.avatarUrl!,
         text
       })
+    console.error('error', error)
     if (error) throw error;
+  }
+
+  async getMessagesWithSenderProfile(taskId: string) {
+    const {data, error} = await this.client
+      .from('messages')
+      .select(`
+        id,
+        sender_id:profiles ( id, full_name, avatar_url ),
+        text,
+        created_at
+      `)
+      .eq('task_id', taskId)
+
+    if (error) throw error
+
+    const parsedMessages = getMessagesSupabaseSchema.parse(data)
+    return parsedMessages.map(message => {
+      return {
+        id: message.id,
+        text: message.text,
+        senderProfile: {
+          id: message.sender_id.id,
+          fullName: message.sender_id.full_name,
+          avatarUrl: message.sender_id.avatar_url
+        },
+        createdAt: new Date(message.created_at),
+      }
+    })
+  }
+
+  createSubscriptionToNewMessages(
+    { taskId }: { taskId: string },
+    onMessageInserted: MessageSubscriptionCallback)
+  {
+    return this.client
+    .channel(`${taskId}/messages`)
+    .on('postgres_changes', {
+      schema: 'public',
+      event: 'INSERT',
+      table: 'messages',
+      filter: `task_id=eq.${taskId}`
+    }, async (payload) => {
+      const parsedMessage = messageSubscriptionSupabaseSchema.parse(payload)
+      onMessageInserted({
+        id: parsedMessage.new.id,
+        text: parsedMessage.new.text,
+        createdAt: new Date(parsedMessage.new.created_at),
+        senderProfile: {
+          id: parsedMessage.new.sender_id,
+          fullName: parsedMessage.new.sender_full_name,
+          avatarUrl: parsedMessage.new.sender_avatar_url
+        }
+      })
+    })
   }
 }
 
 class UserNotAuthenticatedError extends Error {}
+
+type MessageSubscriptionCallback = (message: {
+  id: string,
+  text: string,
+  createdAt: Date,
+  senderProfile: {
+    id: string,
+    fullName: string,
+    avatarUrl: string
+  }
+}) => void

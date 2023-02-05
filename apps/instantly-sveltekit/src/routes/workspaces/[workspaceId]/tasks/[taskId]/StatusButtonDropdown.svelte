@@ -57,7 +57,7 @@
 														if (task.id === $taskStore?.id) {
 															return {
 																...task,
-																status_id: $taskStatus.id
+																statusId: $taskStatus.id
 															};
 														}
 														return task;

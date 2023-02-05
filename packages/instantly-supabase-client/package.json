@@ -8,14 +8,16 @@
     "./index.ts"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "update-supabase-types": "npx supabase gen types typescript --project-id \"qdgranddyzjenssyrsfo\" > ./types/__generated.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tsconfig": "workspace:*",
     "@supabase/supabase-js": "^2.4.1",
+    "supabase": ">=1.8.1",
+    "tsconfig": "workspace:*",
     "zod": "^3.20.2"
   },
   "devDependencies": {

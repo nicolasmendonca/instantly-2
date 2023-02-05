@@ -12,7 +12,7 @@ export const tasksGroupedByStatusStore = asyncDerived(
     return $taskStatuses.map(status => {
       return {
         status,
-        tasks: $tasks.filter(task => task.status_id === status.id)
+        tasks: $tasks.filter(task => task.statusId === status.id)
       }
     })
   },

@@ -13,6 +13,8 @@ export interface Database {
         Row: {
           created_at: string
           id: string
+          sender_avatar_url: string
+          sender_full_name: string
           sender_id: string
           task_id: string
           text: string
@@ -21,6 +23,8 @@ export interface Database {
         Insert: {
           created_at?: string
           id?: string
+          sender_avatar_url: string
+          sender_full_name: string
           sender_id: string
           task_id: string
           text: string
@@ -29,6 +33,8 @@ export interface Database {
         Update: {
           created_at?: string
           id?: string
+          sender_avatar_url?: string
+          sender_full_name?: string
           sender_id?: string
           task_id?: string
           text?: string

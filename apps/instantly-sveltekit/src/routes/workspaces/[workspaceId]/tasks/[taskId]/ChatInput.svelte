@@ -1,9 +1,19 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	export let onNewMessage: (text: string) => void;
+
+	let text = '';
 </script>
 
 <!-- Chat input -->
-<form class="sticky bottom-0 w-full right-0" method="post" action="?/sendMessage" use:enhance>
+<form
+	class="sticky bottom-0 w-full right-0"
+	method="post"
+	action="?/sendMessage"
+	on:submit|preventDefault={async () => {
+		onNewMessage(text);
+		text = '';
+	}}
+>
 	<label for="chat" class="sr-only">Your message</label>
 	<div class="flex items-start px-3 py-2 bg-neutral-50 dark:bg-neutral-700">
 		<button
@@ -43,6 +53,7 @@
 			<span class="sr-only">Add emoji</span>
 		</button>
 		<input
+			bind:value={text}
 			name="text"
 			class="block mx-4 p-2.5 w-full text-sm text-neutral-900 bg-white rounded-lg border border-neutral-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-800 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 			placeholder="Your message..."

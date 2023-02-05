@@ -3,6 +3,7 @@
 	import { taskStatusesStore } from '$src/application/stores/taskStatusesStore';
 	import { taskStore } from '$src/application/stores/taskStore';
 	import { workspacesStore } from '$src/application/stores/workspacesStore';
+	import { authUserProfileStore } from '$src/application/stores/authUserProfileStore';
 	import { fade } from 'svelte/transition';
 	import Spinner from '$src/components/Spinner.svelte';
 	import LoadedTaskPage from './LoadedTaskPage.svelte';
@@ -11,7 +12,8 @@
 		tasksGroupedByStatusStore,
 		taskStore,
 		workspacesStore,
-		taskStatusesStore
+		taskStatusesStore,
+		authUserProfileStore
 	] as const;
 
 	$: pagePromise = pageDependencies.map((store) => store.load());
