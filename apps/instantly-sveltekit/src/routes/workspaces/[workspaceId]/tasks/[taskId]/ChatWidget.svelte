@@ -4,14 +4,14 @@
 	import { chatMessagesStore, createChannel } from '$src/application/stores/chatMessagesStore';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { supabaseClient } from '$src/infrastructure/supabase';
+	import { instantlyClient } from '$src/infrastructure/supabase';
 
 	onMount(async () => {
-		const session = await supabaseClient.auth.getSession();
+		const user = await instantlyClient.getAuthUser();
 		const channel = createChannel({
 			taskId: $page.params.taskId,
 			workspaceId: $page.params.workspaceId,
-			authUserId: session.data.session?.user.id!
+			authUserId: user!.id
 		});
 		channel.subscribe();
 
