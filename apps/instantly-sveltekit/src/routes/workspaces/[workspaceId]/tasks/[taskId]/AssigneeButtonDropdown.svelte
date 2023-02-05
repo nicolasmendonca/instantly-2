@@ -1,39 +1,47 @@
 <script lang="ts">
 	import { Dropdown } from 'flowbite';
-	import { workspaceMembersStore } from '$src/application/stores/workspaceMembersStore';
 	import { taskStore } from '$src/application/stores/taskStore';
+	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
+	import { onMount } from 'svelte';
+	import AssigneeButtonDropdownList from './AssigneeButtonDropdownList.svelte';
 
 	let triggerElement: HTMLButtonElement;
 	let targetElement: HTMLDivElement;
+	let expanded = false;
+
+	onMount(() => {
+		taskAssigneeProfileStore.load();
+	});
 
 	$: {
 		if ($taskStore) {
 			new Dropdown(targetElement, triggerElement, {
 				onShow: () => {
-					workspaceMembersStore.load();
+					expanded = true;
+				},
+				onHide: () => {
+					expanded = false;
 				}
 			});
 		}
 	}
 </script>
 
-{#await taskStore.load() then}
-	{#if $taskStore}
-		<button
-			bind:this={triggerElement}
-			type="button"
-			class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
-		>
-			<div>{$taskStore.profiles?.full_name}</div>
-			<img
-				class="w-10 h-10 rounded-full"
-				loading="lazy"
-				src={$taskStore.profiles?.avatar_url}
-				alt="Rounded avatar"
-			/>
-		</button>
-	{/if}
-{/await}
+{#if $taskAssigneeProfileStore}
+	<button
+		bind:this={triggerElement}
+		type="button"
+		class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
+	>
+		<div>{$taskAssigneeProfileStore.fullName}</div>
+		<img
+			class="w-10 h-10 rounded-full"
+			loading="lazy"
+			src={$taskAssigneeProfileStore.avatarUrl}
+			alt="Rounded avatar"
+		/>
+	</button>
+{/if}
 
 <!-- Dropdown menu -->
 <div
@@ -65,50 +73,7 @@
 			/>
 		</div>
 	</div> -->
-	{#if $workspaceMembersStore}
-		<ul
-			class="h-full py-2 overflow-y-auto text-neutral-700 dark:text-neutral-200"
-			aria-labelledby="dropdownUsersButton"
-		>
-			{#each $workspaceMembersStore as $workspaceMember}
-				{#if $workspaceMember && $workspaceMember.profiles}
-					<li>
-						<button
-							on:click={() => {
-								taskStore.update((prevValue) => ({
-									...prevValue,
-									assignee_id: $workspaceMember.profiles.id,
-									profiles: $workspaceMember.profiles
-								}));
-							}}
-							class="flex items-center px-4 py-2 w-full hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
-						>
-							{#if $workspaceMember.profiles.id === $taskStore.assignee_id}
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="w-6 h-6 mr-2 rounded-full text-primary-500"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							{:else}
-								<img
-									class="w-6 h-6 mr-2 rounded-full"
-									loading="lazy"
-									src={$workspaceMember.profiles.avatar_url}
-									alt=""
-								/>
-							{/if}
-							{$workspaceMember.profiles.full_name}
-						</button>
-					</li>
-				{/if}
-			{/each}
-		</ul>
+	{#if expanded}
+		<AssigneeButtonDropdownList />
 	{/if}
 </div>
