@@ -1,12 +1,8 @@
-import { asyncWritable } from '@square/svelte-store'
-import { supabaseClient } from '$src/infrastructure/supabase'
+import { asyncDerived } from '@square/svelte-store'
+import { instantlyClient } from '$src/infrastructure/supabase'
 import { workspaceIdStore } from './workspaceIdStore'
 
-export const taskStatusesStore = asyncWritable(
+export const taskStatusesStore = asyncDerived(
   [workspaceIdStore],
-  async ([$workspaceId]) => await supabaseClient
-      .from('taskstatus')
-      .select('*')
-      .eq('workspace_id', $workspaceId)
-      .then(result => result.data)
+  async ([$workspaceId]) => await instantlyClient.getTaskStatuses($workspaceId)
   )

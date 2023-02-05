@@ -137,6 +137,26 @@ export class InstantlySupabaseClient {
       })
   }
 
+  async getTasks(workspaceId: string) {
+    const { data, error } = await this.client
+      .from('tasks')
+      .select(`
+        id,
+        title,
+        status_id
+      `)
+      .eq('workspace_id', workspaceId)
+
+    if (error) throw error
+    return data.map(task => {
+      return {
+        id: task.id,
+        title: task.title,
+        statusId: task.status_id,
+      }
+    })
+  }
+
   async updateTask(taskId: string, {
     title,
     description,
@@ -160,6 +180,22 @@ export class InstantlySupabaseClient {
     .single()
 
     if (error) throw error;
+  }
+
+  // TASK STATUSES ------------------------------------------------------------
+  async getTaskStatuses(workspaceId: string) {
+    const {data, error} = await this.client
+      .from('taskstatus')
+      .select('id, label')
+      .eq('workspace_id', workspaceId)
+
+    if (error) throw error
+    return data.map((status) => {
+      return {
+        id: status.id,
+        label: status.label,
+      }
+    })
   }
 
   // MESSAGES -----------------------------------------------------------------

@@ -1,17 +1,10 @@
 import { asyncWritable } from '@square/svelte-store';
-import { supabaseClient } from '$src/infrastructure/supabase';
+import { instantlyClient } from '$src/infrastructure/supabase';
 import { workspaceIdStore } from './workspaceIdStore';
 
 export const tasksStore = asyncWritable(
   [workspaceIdStore],
-  async ([$workspaceId]) => supabaseClient
-      .from('tasks')
-      .select(`
-        id,
-        title,
-        status_id
-      `)
-      .eq('workspace_id', $workspaceId)
-      .then(res => res.data),
-      async (updatedTasks) => updatedTasks
+  async ([$workspaceId]) => instantlyClient.getTasks($workspaceId),
+  // Accept a function that takes any updated promises to update the UI without performing extra requests
+  async (updatedTasks) => updatedTasks
 )
