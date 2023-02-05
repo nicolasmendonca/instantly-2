@@ -1,2 +1,2 @@
-export * from './InstantlySupabaseClient'
-export * from './types/InstantlyTypedSupabaseClient'
+export * from "./InstantlySupabaseClient";
+export * from "./types/InstantlyTypedSupabaseClient";

@@ -14,7 +14,8 @@ module.exports = {
 	},
 	rules: {
 		'square-svelte-store/use-square-svelte-stores': 'error',
-		'@typescript-eslint/no-non-null-assertion': 'off'
+		'@typescript-eslint/no-non-null-assertion': 'off',
+		'@typescript-eslint/ban-ts-comment': 'off'
 	},
 	env: {
 		browser: true,

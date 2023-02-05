@@ -4,7 +4,7 @@
 	import { chatMessagesStore } from '$src/application/stores/chatMessagesStore';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { instantlyClient } from '$src/infrastructure/supabase';
+	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
 	import { authUserProfileStore } from '$src/application/stores/authUserProfileStore';
 
 	$: authUserProfile = $authUserProfileStore;

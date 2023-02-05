@@ -3,18 +3,18 @@ import { tasksStore } from './tasksStore';
 import { taskStatusesStore } from './taskStatusesStore';
 
 export const tasksGroupedByStatusStore = asyncDerived(
-  [taskStatusesStore, tasksStore],
-  async (stores) => {
-    const [$taskStatuses, $tasks] = stores!
+	[taskStatusesStore, tasksStore],
+	async (stores) => {
+		const [$taskStatuses, $tasks] = stores!;
 
-    if (!$taskStatuses || !$tasks) return null;
+		if (!$taskStatuses || !$tasks) return null;
 
-    return $taskStatuses.map(status => {
-      return {
-        status,
-        tasks: $tasks.filter(task => task.statusId === status.id)
-      }
-    })
-  },
-  { reloadable: true }
-)
+		return $taskStatuses.map((status) => {
+			return {
+				status,
+				tasks: $tasks.filter((task) => task.statusId === status.id)
+			};
+		});
+	},
+	{ reloadable: true }
+);

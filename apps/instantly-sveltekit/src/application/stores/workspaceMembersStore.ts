@@ -1,8 +1,7 @@
-import { asyncWritable } from '@square/svelte-store'
-import { instantlyClient } from '$src/infrastructure/supabase'
-import { workspaceIdStore } from './workspaceIdStore'
+import { asyncWritable } from '@square/svelte-store';
+import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
+import { workspaceIdStore } from './workspaceIdStore';
 
-export const workspaceMembersStore = asyncWritable(
-  [workspaceIdStore],
-  async ([$workspaceId]) => instantlyClient.getWorkspaceProfiles($workspaceId)
-)
+export const workspaceMembersStore = asyncWritable([workspaceIdStore], async ([$workspaceId]) =>
+	instantlyClient.getWorkspaceProfiles($workspaceId)
+);

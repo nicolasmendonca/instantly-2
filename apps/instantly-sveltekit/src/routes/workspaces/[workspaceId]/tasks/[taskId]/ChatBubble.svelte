@@ -45,24 +45,3 @@
 		{message.text}
 	</div>
 </div>
-
-<style lang="postcss">
-	.speech-bubble {
-		position: relative;
-		border-radius: 0.4em;
-	}
-
-	.speech-bubble.has-arrow:after {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 32px;
-		width: 0;
-		height: 0;
-		border: 6px solid transparent;
-		border-left: 0;
-		margin-top: -6px;
-		margin-left: -6px;
-		@apply border-r-neutral-700;
-	}
-</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { instantlyClient } from '$src/infrastructure/supabase';
+	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import '$src/app.postcss';

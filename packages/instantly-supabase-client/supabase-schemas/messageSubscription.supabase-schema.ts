@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const messageSubscriptionSupabaseSchema = z.object({
   new: z.object({
@@ -7,6 +7,6 @@ export const messageSubscriptionSupabaseSchema = z.object({
     sender_full_name: z.string(),
     sender_avatar_url: z.string(),
     text: z.string(),
-    created_at: z.string()
-  })
-})
+    created_at: z.string(),
+  }),
+});

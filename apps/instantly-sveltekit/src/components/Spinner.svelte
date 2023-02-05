@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let size: number = 12;
+	export let size = 12;
 </script>
 
 <div role="status">

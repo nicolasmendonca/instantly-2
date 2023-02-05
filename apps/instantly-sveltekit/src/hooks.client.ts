@@ -1,1 +1,1 @@
-import './infrastructure/supabase'
+import './infrastructure/supabase/supabaseClient';

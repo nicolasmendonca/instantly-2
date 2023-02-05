@@ -2,9 +2,9 @@
 	import { classNames } from './classNames';
 
 	export let type: 'button' | 'submit' = 'button';
-	export let className: string = '';
-	export let variant: 'primary' = 'primary';
-	export let isLoading: boolean = false;
+	export let className = '';
+	export let variant = 'primary' as const;
+	export let isLoading = false;
 
 	const defaultClassNames = {
 		default: classNames.buttonDefault,
