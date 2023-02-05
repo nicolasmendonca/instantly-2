@@ -74,13 +74,11 @@ export const createChannel = ({
 			const parsedMessage = z.object({
         new: z.object({ id: z.string() })
       }).parse(payload);
-			console.log(parsedMessage);
 			const queryResult = await getDbQuery(taskId)
 				.eq('id', parsedMessage.new.id)
 				.single();
 			const parsedMessageWithProfile = parseMessageWithProfileFromDb(queryResult.data);
 			chatMessagesStore.update((prevMessages) => prevMessages.concat(parsedMessageWithProfile));
-			console.log(parsedMessageWithProfile);
 		}
 	);
 

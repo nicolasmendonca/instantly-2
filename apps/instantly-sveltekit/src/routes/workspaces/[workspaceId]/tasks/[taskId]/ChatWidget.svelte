@@ -13,7 +13,6 @@
 			workspaceId: $page.params.workspaceId,
 			authUserId: session.data.session?.user.id!
 		});
-		console.log(channel, $page.params.taskId);
 		channel.subscribe();
 
 		return () => {
