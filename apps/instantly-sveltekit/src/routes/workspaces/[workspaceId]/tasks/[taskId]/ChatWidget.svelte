@@ -69,7 +69,7 @@
 				// Skip if the message was sent by the current user. We'll optimistically set it
 				if (message.senderProfile.id === authUserProfile?.id) return;
 
-				if (hasNotificationPermission) {
+				if (hasNotificationPermission && document.hidden) {
 					new Notification(`${$taskStore.title}`, {
 						body: message.text
 					});
