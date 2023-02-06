@@ -27,12 +27,12 @@
 	}
 </script>
 
-{#if $taskAssigneeProfileStore}
-	<button
-		bind:this={triggerElement}
-		type="button"
-		class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
-	>
+<button
+	bind:this={triggerElement}
+	type="button"
+	class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
+>
+	{#if $taskAssigneeProfileStore}
 		<div>{$taskAssigneeProfileStore.fullName}</div>
 		<img
 			class="w-10 h-10 rounded-full"
@@ -40,13 +40,15 @@
 			src={$taskAssigneeProfileStore.avatarUrl}
 			alt="Rounded avatar"
 		/>
-	</button>
-{/if}
+	{:else}
+		<div>Unassigned</div>
+	{/if}
+</button>
 
 <!-- Dropdown menu -->
 <div
 	bind:this={targetElement}
-	class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem] overflow-y-auto"
+	class="z-20 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem] overflow-y-auto"
 >
 	<!-- <div class="p-3">
 		<label for="input-group-search" class="sr-only">Search</label>

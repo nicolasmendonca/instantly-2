@@ -23,7 +23,7 @@
 		<!-- Dropdown menu -->
 		<div
 			bind:this={targetElement}
-			class="z-10 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-800 dark:divide-neutral-600"
+			class="z-20 hidden w-48 bg-white divide-y divide-neutral-100 rounded-lg shadow dark:bg-neutral-800 dark:divide-neutral-600"
 		>
 			{#await taskStatusesStore.load() then}
 				{#if $taskStatusesStore}

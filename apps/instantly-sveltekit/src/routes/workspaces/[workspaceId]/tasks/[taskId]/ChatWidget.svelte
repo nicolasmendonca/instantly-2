@@ -6,7 +6,9 @@
 	import { onMount } from 'svelte';
 	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
 	import { authUserProfileStore } from '$src/application/stores/authUserProfileStore';
-	import { taskStore } from '../../../../../application/stores/taskStore';
+	import { taskStore } from '$src/application/stores/taskStore';
+	import { generateWorkspaceAvatar } from '$src/application/avatar';
+	import { workspaceStore } from '$src/application/stores/workspaceStore';
 
 	$: authUserProfile = $authUserProfileStore;
 
@@ -71,7 +73,8 @@
 
 				if (hasNotificationPermission && document.hidden) {
 					new Notification(`${$taskStore.title}`, {
-						body: message.text
+						body: message.text,
+						icon: $workspaceStore ? generateWorkspaceAvatar($workspaceStore?.name) : undefined
 					});
 				}
 				// keep a temp reference if the chat is at the bottom position before we add the new message
@@ -94,6 +97,7 @@
 
 	onMount(async () => {
 		if ('Notification' in window) {
+			if (Notification.permission === 'granted') return;
 			const result = await Notification.requestPermission();
 			hasNotificationPermission = result === 'granted';
 		}

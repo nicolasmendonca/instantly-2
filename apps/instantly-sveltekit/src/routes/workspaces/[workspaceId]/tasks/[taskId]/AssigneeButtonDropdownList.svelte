@@ -2,10 +2,21 @@
 	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
 	import { taskStore } from '$src/application/stores/taskStore';
 	import { workspaceMembersStore } from '$src/application/stores/workspaceMembersStore';
+	import Spinner from '$src/components/Spinner.svelte';
 </script>
 
+<button
+	class="text-primary-500 w-full p-2 text-right px-2 underline"
+	on:click={() =>
+		taskStore.update((prevValue) => ({
+			...prevValue,
+			assigneeId: null
+		}))}
+>
+	Unassign
+</button>
 <ul
-	class="h-full py-2 overflow-y-auto text-neutral-700 dark:text-neutral-200"
+	class="h-full py-2 overflow-y-auto text-neutral-700 dark:text-neutral-200 border-t border-t-neutral-400"
 	aria-labelledby="dropdownUsersButton"
 >
 	{#if $workspaceMembersStore}
@@ -36,7 +47,7 @@
 							</svg>
 						{:else}
 							<img
-								class="w-6 h-6 mr-2 rounded-full"
+								class="w-6 h-6 mr-2 rounded-full object-cover"
 								loading="lazy"
 								src={$workspaceMember.avatarUrl}
 								alt=""
@@ -47,5 +58,9 @@
 				</li>
 			{/if}
 		{/each}
+	{:else}
+		<div class="flex items-center justify-center w-full h-full">
+			<Spinner />
+		</div>
 	{/if}
 </ul>

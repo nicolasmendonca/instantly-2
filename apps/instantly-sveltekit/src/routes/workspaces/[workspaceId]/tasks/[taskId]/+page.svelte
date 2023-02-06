@@ -1,16 +1,18 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { tasksGroupedByStatusStore } from '$src/application/stores/tasksGroupedByStatusStore';
 	import { taskStatusesStore } from '$src/application/stores/taskStatusesStore';
 	import { taskStore } from '$src/application/stores/taskStore';
 	import { workspacesStore } from '$src/application/stores/workspacesStore';
 	import { authUserProfileStore } from '$src/application/stores/authUserProfileStore';
-	import { fade } from 'svelte/transition';
+	import { tasksStore } from '$src/application/stores/tasksStore';
 	import Spinner from '$src/components/Spinner.svelte';
 	import LoadedTaskPage from './LoadedTaskPage.svelte';
 
 	const pageDependencies = [
 		tasksGroupedByStatusStore,
 		taskStore,
+		tasksStore,
 		workspacesStore,
 		taskStatusesStore,
 		authUserProfileStore
