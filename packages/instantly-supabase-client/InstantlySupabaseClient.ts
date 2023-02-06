@@ -268,7 +268,6 @@ export class InstantlySupabaseClient {
       sender_avatar_url: profile.avatarUrl!,
       text,
     });
-    console.error("error", error);
     if (error) throw error;
   }
 
@@ -283,7 +282,9 @@ export class InstantlySupabaseClient {
         created_at
       `
       )
-      .eq("task_id", taskId);
+      .eq("task_id", taskId)
+      .order('created_at', { ascending: false })
+      .limit(10);
 
     if (error) throw error;
 

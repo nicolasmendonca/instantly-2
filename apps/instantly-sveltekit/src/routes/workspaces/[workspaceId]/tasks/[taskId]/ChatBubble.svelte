@@ -12,15 +12,19 @@
 </script>
 
 <div
-	class:pb-2={!includeSenderInfo}
+	class:mt-4={includeSenderInfo}
 	class="px-8 flex items-start space-x-4 group relative w-full transition-all hover:bg-neutral-900 hover:bg-opacity-40 rounded-lg"
 >
 	<!-- Avatar -->
 	{#if includeSenderInfo}
-		<img class="w-14 rounded-full" src={message.senderProfile.avatarUrl} alt="" />
+		<img
+			class="w-10 h-10 mr-6 rounded-full object-cover"
+			src={message.senderProfile.avatarUrl}
+			alt=""
+		/>
 	{:else}
 		<div
-			class="min-w-[3.5rem] relative text-xs text-neutral-500 select-none opacity-0 group-hover:opacity-100"
+			class="w-12 min-w-[4rem] relative text-xs text-neutral-500 select-none opacity-0 group-hover:opacity-100"
 		>
 			<div class="pt-1">
 				{formatter.format(message.createdAt)}

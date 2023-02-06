@@ -6,11 +6,27 @@
 	import { onMount } from 'svelte';
 	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
 	import { authUserProfileStore } from '$src/application/stores/authUserProfileStore';
+	import { taskStore } from '../../../../../application/stores/taskStore';
 
 	$: authUserProfile = $authUserProfileStore;
 
+	let chatContainerRef: HTMLDivElement;
+	let priorToLastMessageElement: HTMLDivElement;
+	let hasNotificationPermission = false;
+
+	function isInViewport(el: HTMLElement) {
+		const rect = el.getBoundingClientRect();
+		return (
+			rect.top >= 0 &&
+			rect.left >= 0 &&
+			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+		);
+	}
+
 	const handleSendNewMessage = async (text: string) => {
-		chatMessagesStore.update((messages) => {
+		let tempIsScrolledBottom = isInViewport(priorToLastMessageElement);
+		await chatMessagesStore.update((messages) => {
 			if (!authUserProfile) throw new Error('User profile is not loaded');
 			return [
 				...messages,
@@ -26,6 +42,9 @@
 				}
 			];
 		});
+		if (tempIsScrolledBottom) {
+			chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
+		}
 		await instantlyClient.sendMessage({
 			text,
 			taskId: $page.params.taskId,
@@ -33,18 +52,37 @@
 		});
 	};
 
+	// Load messages
+	onMount(() => {
+		chatMessagesStore.load().then(() => {
+			chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
+		});
+	});
+
+	// Subscribe to new Messages
 	onMount(async () => {
-		chatMessagesStore.load();
 		const subscriptionChannel = instantlyClient.createSubscriptionToNewMessages(
 			{
 				taskId: $page.params.taskId
 			},
-			(message) => {
+			async (message) => {
 				// Skip if the message was sent by the current user. We'll optimistically set it
 				if (message.senderProfile.id === authUserProfile?.id) return;
-				chatMessagesStore.update((messages) => {
+
+				if (hasNotificationPermission) {
+					new Notification(`${$taskStore.title}`, {
+						body: message.text
+					});
+				}
+				// keep a temp reference if the chat is at the bottom position before we add the new message
+				let tempIsScrolledBottom = isInViewport(priorToLastMessageElement);
+				await chatMessagesStore.update((messages) => {
 					return [...messages, message];
 				});
+				// now we scroll
+				if (tempIsScrolledBottom) {
+					chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
+				}
 			}
 		);
 		subscriptionChannel.subscribe();
@@ -53,14 +91,27 @@
 			subscriptionChannel.unsubscribe();
 		};
 	});
+
+	onMount(async () => {
+		if ('Notification' in window) {
+			const result = await Notification.requestPermission();
+			hasNotificationPermission = result === 'granted';
+		}
+	});
 </script>
 
 <!-- Messages list -->
 <div class="max-h-screen overflow-y-hidden">
 	<!-- Container -->
-	<div class="mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pt-8">
+	<div
+		class="mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pb-6"
+		bind:this={chatContainerRef}
+	>
 		{#if $chatMessagesStore}
 			{#each $chatMessagesStore as message, messageIndex (message.id)}
+				{#if $chatMessagesStore.length - 1 === messageIndex}
+					<div bind:this={priorToLastMessageElement} />
+				{/if}
 				<ChatBubble
 					{message}
 					includeSenderInfo={$chatMessagesStore[messageIndex - 1]?.senderProfile.id !==
