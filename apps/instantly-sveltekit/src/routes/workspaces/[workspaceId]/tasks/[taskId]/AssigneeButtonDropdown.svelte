@@ -1,30 +1,42 @@
 <script lang="ts">
 	import { Dropdown } from 'flowbite';
-	import { taskStore } from '$src/application/stores/taskStore';
-	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
 	import { onMount } from 'svelte';
 	import AssigneeButtonDropdownList from './AssigneeButtonDropdownList.svelte';
+	import { createQuery } from '@tanstack/svelte-query';
+	import { page } from '$app/stores';
+	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
+	import type { InstantlySupabaseClient } from 'instantly-supabase-client';
 
 	let triggerElement: HTMLButtonElement;
 	let targetElement: HTMLDivElement;
 	let expanded = false;
 
-	onMount(() => {
-		taskAssigneeProfileStore.load();
+	type Task = Awaited<ReturnType<InstantlySupabaseClient['getTask']>>;
+	type Profile = null | Awaited<ReturnType<InstantlySupabaseClient['getProfile']>>;
+
+	$: taskQuery = createQuery<Task>({
+		queryKey: ['workspaces', $page.params.workspaceId, 'tasks', $page.params.taskId],
+		queryFn: () => instantlyClient.getTask($page.params.taskId),
+		initialData: $page.data.task as Task
 	});
 
-	$: {
-		if ($taskStore) {
-			new Dropdown(targetElement, triggerElement, {
-				onShow: () => {
-					expanded = true;
-				},
-				onHide: () => {
-					expanded = false;
-				}
-			});
-		}
-	}
+	$: assigneeProfileQuery = createQuery<Profile>({
+		queryKey: ['workspaces', $page.params.workspaceId, 'tasks', $taskQuery.data?.id, 'assignee'],
+		queryFn: () =>
+			$taskQuery.data?.assigneeId ? instantlyClient.getProfile($taskQuery.data.assigneeId) : null,
+		initialData: $page.data.assigneeProfile as Profile
+	});
+
+	onMount(() => {
+		new Dropdown(targetElement, triggerElement, {
+			onShow: () => {
+				expanded = true;
+			},
+			onHide: () => {
+				expanded = false;
+			}
+		});
+	});
 </script>
 
 <button
@@ -32,12 +44,12 @@
 	type="button"
 	class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
 >
-	{#if $taskAssigneeProfileStore}
-		<div>{$taskAssigneeProfileStore.fullName}</div>
+	{#if $assigneeProfileQuery.data}
+		<div>{$assigneeProfileQuery.data.fullName}</div>
 		<img
 			class="w-10 h-10 rounded-full"
 			loading="lazy"
-			src={$taskAssigneeProfileStore.avatarUrl}
+			src={$assigneeProfileQuery.data.avatarUrl}
 			alt="Rounded avatar"
 		/>
 	{:else}

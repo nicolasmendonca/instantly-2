@@ -1,8 +1,18 @@
 <script lang="ts">
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
 	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import '$src/app.postcss';
+	import { browser } from '$app/environment';
+
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				enabled: browser
+			}
+		}
+	});
 
 	onMount(() => {
 		const {
@@ -17,4 +27,6 @@
 	});
 </script>
 
-<slot />
+<QueryClientProvider client={queryClient}>
+	<slot />
+</QueryClientProvider>

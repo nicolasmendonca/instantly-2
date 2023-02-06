@@ -25,12 +25,13 @@
 		"@square/svelte-store": "^1.0.13",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.4.1",
+		"@tanstack/svelte-query": "^4.24.4",
 		"debounce": "^1.2.1",
 		"flowbite": "^1.6.3",
+		"instantly-supabase-client": "workspace:*",
 		"split.js": "^1.6.5",
 		"zod": "^3.20.2",
-		"zod-form-data": "^1.2.4",
-		"instantly-supabase-client": "workspace:*"
+		"zod-form-data": "^1.2.4"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^1.0.0",

@@ -30,7 +30,7 @@
 			<WorkspaceMenu />
 		</div>
 		<div class="w-[50%] overflow-y-hidden" bind:this={chatPane}>
-			<ChatWidget />
+			<!-- <ChatWidget /> -->
 		</div>
 		<div class="w-[30%] overflow-y-hidden" bind:this={taskPane}>
 			<TaskWidget />
