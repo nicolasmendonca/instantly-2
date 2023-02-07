@@ -8,6 +8,7 @@
 	import { taskStore } from '$src/application/stores/taskStore';
 	import { generateWorkspaceAvatar } from '$src/application/avatar';
 	import { workspaceStore } from '$src/application/stores/workspaceStore';
+	import Spinner from '$src/components/Spinner.svelte';
 
 	$: authUserProfile = $authUserProfileStore;
 
@@ -64,7 +65,6 @@
 		intersectionObserver = new IntersectionObserver(
 			async (entry) => {
 				const [firstEntry] = entry;
-				console.log('isIntersecting', firstEntry.isIntersecting);
 				if (firstEntry.isIntersecting && hasMoreMessages) {
 					pageIndex += 1;
 					const loadedMessages = await instantlyClient.getMessagesWithSenderProfile({
@@ -139,7 +139,11 @@
 					message.senderProfile.id || messageIndex === messages.length - 1}
 			/>
 		{/each}
-		<div bind:this={lastMessageIndicator} />
+		{#if hasMoreMessages}
+			<div bind:this={lastMessageIndicator} class="flex w-full items-center justify-center py-4">
+				<Spinner />
+			</div>
+		{/if}
 	</div>
 	<ChatInput onNewMessage={handleSendNewMessage} />
 </div>
