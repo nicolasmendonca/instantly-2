@@ -1,7 +1,6 @@
 <script lang="ts">
 	import ChatBubble from './ChatBubble.svelte';
 	import ChatInput from './ChatInput.svelte';
-	import { chatMessagesStore } from '$src/application/stores/chatMessagesStore';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
@@ -12,41 +11,37 @@
 
 	$: authUserProfile = $authUserProfileStore;
 
-	let chatContainerRef: HTMLDivElement;
-	let priorToLastMessageElement: HTMLDivElement;
-	let hasNotificationPermission = false;
+	type Messages = Awaited<ReturnType<typeof instantlyClient.getMessagesWithSenderProfile>>;
 
-	function isInViewport(el: HTMLElement) {
-		const rect = el.getBoundingClientRect();
-		return (
-			rect.top >= 0 &&
-			rect.left >= 0 &&
-			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-		);
+	let lastMessageIndicator: HTMLDivElement;
+
+	let pageIndex = 0;
+	let messages: Messages = [];
+	let hasMoreMessages = true;
+
+	let chatContainerRef: HTMLDivElement;
+	let hasNotificationPermission = false;
+	let intersectionObserver: IntersectionObserver;
+
+	$: {
+		console.log(messages);
 	}
 
 	const handleSendNewMessage = async (text: string) => {
-		let tempIsScrolledBottom = isInViewport(priorToLastMessageElement);
-		await chatMessagesStore.update((messages) => {
-			if (!authUserProfile) throw new Error('User profile is not loaded');
-			return [
-				...messages,
-				{
-					id: crypto.randomUUID(),
-					createdAt: new Date(),
-					text,
-					senderProfile: {
-						id: authUserProfile.id,
-						fullName: authUserProfile.fullName!,
-						avatarUrl: authUserProfile.avatarUrl!
-					}
+		if (!authUserProfile) return;
+		messages = [
+			{
+				id: crypto.randomUUID(),
+				createdAt: new Date(),
+				text,
+				senderProfile: {
+					id: authUserProfile.id,
+					fullName: authUserProfile.fullName!,
+					avatarUrl: authUserProfile.avatarUrl!
 				}
-			];
-		});
-		if (tempIsScrolledBottom) {
-			chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
-		}
+			},
+			...messages
+		];
 		await instantlyClient.sendMessage({
 			text,
 			taskId: $page.params.taskId,
@@ -54,11 +49,43 @@
 		});
 	};
 
-	// Load messages
-	onMount(() => {
-		chatMessagesStore.load().then(() => {
-			chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
+	// Load initial messages
+	onMount(async () => {
+		const loadedMessages = await instantlyClient.getMessagesWithSenderProfile({
+			taskId: $page.params.taskId,
+			pageIndex
 		});
+		messages = [...messages, ...loadedMessages];
+		chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
+	});
+
+	// Load more messages on scroll
+	onMount(() => {
+		intersectionObserver = new IntersectionObserver(
+			async (entry) => {
+				const [firstEntry] = entry;
+				console.log('isIntersecting', firstEntry.isIntersecting);
+				if (firstEntry.isIntersecting && hasMoreMessages) {
+					pageIndex += 1;
+					const loadedMessages = await instantlyClient.getMessagesWithSenderProfile({
+						taskId: $page.params.taskId,
+						pageIndex
+					});
+					hasMoreMessages = loadedMessages.length > 0;
+					messages = [...messages, ...loadedMessages];
+				}
+			},
+			{
+				root: chatContainerRef,
+				threshold: 0
+			}
+		);
+
+		intersectionObserver.observe(lastMessageIndicator);
+
+		return () => {
+			intersectionObserver.unobserve(lastMessageIndicator);
+		};
 	});
 
 	// Subscribe to new Messages
@@ -78,14 +105,7 @@
 					});
 				}
 				// keep a temp reference if the chat is at the bottom position before we add the new message
-				let tempIsScrolledBottom = isInViewport(priorToLastMessageElement);
-				await chatMessagesStore.update((messages) => {
-					return [...messages, message];
-				});
-				// now we scroll
-				if (tempIsScrolledBottom) {
-					chatContainerRef.scrollTop = chatContainerRef.scrollHeight;
-				}
+				messages = [message, ...messages];
 			}
 		);
 		subscriptionChannel.subscribe();
@@ -95,6 +115,7 @@
 		};
 	});
 
+	// Handle notifications
 	onMount(async () => {
 		if ('Notification' in window) {
 			if (Notification.permission === 'granted') return;
@@ -108,21 +129,17 @@
 <div class="max-h-screen overflow-y-hidden">
 	<!-- Container -->
 	<div
-		class="mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pb-6"
+		class="mb-16 relative h-[calc(100vh_-_58px)] overflow-y-auto pb-6 flex flex-col-reverse"
 		bind:this={chatContainerRef}
 	>
-		{#if $chatMessagesStore}
-			{#each $chatMessagesStore as message, messageIndex (message.id)}
-				{#if $chatMessagesStore.length - 1 === messageIndex}
-					<div bind:this={priorToLastMessageElement} />
-				{/if}
-				<ChatBubble
-					{message}
-					includeSenderInfo={$chatMessagesStore[messageIndex - 1]?.senderProfile.id !==
-						message.senderProfile.id}
-				/>
-			{/each}
-		{/if}
+		{#each messages as message, messageIndex (message.id)}
+			<ChatBubble
+				{message}
+				includeSenderInfo={messages[messageIndex + 1]?.senderProfile.id !==
+					message.senderProfile.id || messageIndex === messages.length - 1}
+			/>
+		{/each}
+		<div bind:this={lastMessageIndicator} />
 	</div>
 	<ChatInput onNewMessage={handleSendNewMessage} />
 </div>

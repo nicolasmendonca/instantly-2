@@ -271,7 +271,14 @@ export class InstantlySupabaseClient {
     if (error) throw error;
   }
 
-  async getMessagesWithSenderProfile(taskId: string) {
+  async getMessagesWithSenderProfile({
+    taskId,
+    pageIndex
+  }: {
+    taskId: string,
+    pageIndex: number
+  }) {
+    const PAGE_SIZE = 30;
     const { data, error } = await this.client
       .from("messages")
       .select(
@@ -284,7 +291,7 @@ export class InstantlySupabaseClient {
       )
       .eq("task_id", taskId)
       .order('created_at', { ascending: false })
-      .limit(10);
+      .range(pageIndex * PAGE_SIZE, pageIndex * PAGE_SIZE + PAGE_SIZE - 1);
 
     if (error) throw error;
 
