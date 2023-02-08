@@ -47,7 +47,7 @@
 													if (!value || !$currentTaskStatusStore) return value;
 													return {
 														...value,
-														status_id: $taskStatus.id
+														statusId: $taskStatus.id
 													};
 												});
 												// Update the task in the list

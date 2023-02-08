@@ -24,10 +24,6 @@
 	let hasNotificationPermission = false;
 	let intersectionObserver: IntersectionObserver;
 
-	$: {
-		console.log(messages);
-	}
-
 	const handleSendNewMessage = async (text: string) => {
 		if (!authUserProfile) return;
 		messages = [
@@ -84,7 +80,7 @@
 		intersectionObserver.observe(lastMessageIndicator);
 
 		return () => {
-			intersectionObserver.unobserve(lastMessageIndicator);
+			intersectionObserver.disconnect();
 		};
 	});
 

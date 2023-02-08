@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Split from 'split.js';
 	import { onMount } from 'svelte';
 
@@ -27,13 +28,19 @@
 	</div>
 	<div class="flex w-screen h-screen overflow-x-hidden">
 		<div class="w-[20%] overflow-y-hidden" bind:this={workspacePane}>
-			<WorkspaceMenu />
+			{#key $page.params.workspaceId}
+				<WorkspaceMenu />
+			{/key}
 		</div>
 		<div class="w-[50%] overflow-y-hidden" bind:this={chatPane}>
-			<ChatWidget />
+			{#key $page.params.taskId}
+				<ChatWidget />
+			{/key}
 		</div>
 		<div class="w-[30%] overflow-y-hidden" bind:this={taskPane}>
-			<TaskWidget />
+			{#key $page.params.taskId}
+				<TaskWidget />
+			{/key}
 		</div>
 	</div>
 </div>

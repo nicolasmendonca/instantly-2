@@ -31,9 +31,7 @@
 					<h2 class="font-bold text-lg mb-2">Description:</h2>
 					{#await import('./TaskDescription.svelte') then TaskDescription}
 						<!-- Lazily load this component to delay loading the editorjs plugin -->
-						{#key $taskStore.description}
-							<TaskDescription.default />
-						{/key}
+						<TaskDescription.default />
 					{/await}
 					<!-- <p class="text-lg font-light mx-auto text-neutral-300">
 							{$taskStore.description}
