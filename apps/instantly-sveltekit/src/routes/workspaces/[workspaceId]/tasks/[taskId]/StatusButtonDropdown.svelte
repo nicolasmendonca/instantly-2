@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Dropdown } from 'flowbite';
 	import { taskStatusesStore } from '$src/application/stores/taskStatusesStore';
-	import { taskStore } from '$src/application/stores/taskStore';
+	import { taskStore, updateTaskStatus } from '$src/application/stores/taskStore';
 	import { currentTaskStatusStore } from '$src/application/stores/currentTaskStatusStore';
-	import { tasksStore } from '$src/application/stores/tasksStore';
+	import { updateTaskStatusFromList } from '$src/application/stores/tasksStore';
+	import Spinner from '$src/components/Spinner.svelte';
 
 	let triggerElement: HTMLButtonElement;
 	let targetElement: HTMLDivElement;
@@ -11,7 +12,9 @@
 	$: if ($taskStatusesStore) new Dropdown(targetElement, triggerElement);
 </script>
 
-{#await currentTaskStatusStore.load() then}
+{#await currentTaskStatusStore.load()}
+	<Spinner size={6} />
+{:then}
 	{#if $currentTaskStatusStore}
 		<button
 			bind:this={triggerElement}
@@ -43,26 +46,9 @@
 											checked={$taskStatus.id === $currentTaskStatusStore.id}
 											on:change={() => {
 												// Update the individual task
-												taskStore.update((value) => {
-													if (!value || !$currentTaskStatusStore) return value;
-													return {
-														...value,
-														statusId: $taskStatus.id
-													};
-												});
+												updateTaskStatus($taskStatus.id, false);
 												// Update the task in the list
-												tasksStore.update((prevVal) => {
-													if (!prevVal) return prevVal;
-													return prevVal.map((task) => {
-														if (task.id === $taskStore?.id) {
-															return {
-																...task,
-																statusId: $taskStatus.id
-															};
-														}
-														return task;
-													});
-												});
+												updateTaskStatusFromList($taskStore.id, $taskStatus.id, false);
 											}}
 											name="default-radio"
 											class="w-4 h-4 m-2 text-primary-600 bg-neutral-100 border-neutral-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-neutral-700 dark:focus:ring-offset-neutral-700 focus:ring-2 dark:bg-neutral-600 dark:border-neutral-500"

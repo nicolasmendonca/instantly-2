@@ -4,6 +4,7 @@
 	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
 	import { onMount } from 'svelte';
 	import AssigneeButtonDropdownList from './AssigneeButtonDropdownList.svelte';
+	import Spinner from '$src/components/Spinner.svelte';
 
 	let triggerElement: HTMLButtonElement;
 	let targetElement: HTMLDivElement;
@@ -27,30 +28,33 @@
 	}
 </script>
 
-<button
-	bind:this={triggerElement}
-	type="button"
-	class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
->
-	{#if $taskAssigneeProfileStore}
-		<div>{$taskAssigneeProfileStore.fullName}</div>
-		<img
-			class="w-10 h-10 rounded-full"
-			loading="lazy"
-			src={$taskAssigneeProfileStore.avatarUrl}
-			alt="Rounded avatar"
-		/>
-	{:else}
-		<div>Unassigned</div>
-	{/if}
-</button>
+{#await taskAssigneeProfileStore.load()}
+	<Spinner size={6} />
+{:then}
+	<button
+		bind:this={triggerElement}
+		type="button"
+		class="pointer hover:bg-neutral-600 hover:text-white transition-all flex items-center space-x-2 border text-neutral-300 border-neutral-500 rounded-lg p-2"
+	>
+		{#if $taskAssigneeProfileStore}
+			<div>{$taskAssigneeProfileStore.fullName}</div>
+			<img
+				class="w-10 h-10 rounded-full"
+				loading="lazy"
+				src={$taskAssigneeProfileStore.avatarUrl}
+				alt="Rounded avatar"
+			/>
+		{:else}
+			<div>Unassigned</div>
+		{/if}
+	</button>
 
-<!-- Dropdown menu -->
-<div
-	bind:this={targetElement}
-	class="z-20 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem] overflow-y-auto"
->
-	<!-- <div class="p-3">
+	<!-- Dropdown menu -->
+	<div
+		bind:this={targetElement}
+		class="z-20 hidden bg-white rounded-lg shadow w-60 dark:bg-neutral-800 h-[26rem] overflow-y-auto"
+	>
+		<!-- <div class="p-3">
 		<label for="input-group-search" class="sr-only">Search</label>
 		<div class="relative">
 			<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -75,7 +79,8 @@
 			/>
 		</div>
 	</div> -->
-	{#if expanded}
-		<AssigneeButtonDropdownList />
-	{/if}
-</div>
+		{#if expanded}
+			<AssigneeButtonDropdownList />
+		{/if}
+	</div>
+{/await}

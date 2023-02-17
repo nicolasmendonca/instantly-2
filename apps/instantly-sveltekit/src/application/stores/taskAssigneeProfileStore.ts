@@ -1,16 +1,8 @@
-import { asyncDerived } from '@square/svelte-store';
-import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
+import { derived } from '@square/svelte-store';
 import { taskStore } from './taskStore';
 
-const taskAssigneeIdStore = asyncDerived([taskStore], ([$task]) =>
-	Promise.resolve($task.assigneeId)
-);
 
-export const taskAssigneeProfileStore = asyncDerived(
-	[taskAssigneeIdStore],
-	([$taskAssigneeId]) =>
-		$taskAssigneeId ? instantlyClient.getProfile($taskAssigneeId) : Promise.resolve(null),
-	{
-		reloadable: true
-	}
+export const taskAssigneeProfileStore = derived(
+	[taskStore],
+	([$task]) => $task.assignee ? $task.assignee : null,
 );

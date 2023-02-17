@@ -5,5 +5,9 @@ export const getTaskSupabaseSchema = z.object({
   title: z.string(),
   description: z.string().nullable(),
   status_id: z.string(),
-  assignee_id: z.string().nullable(),
+  assignee: z.object({
+    id: z.string(),
+    full_name: z.string(),
+    avatar_url: z.string().nullable(),
+  }).nullable(),
 });

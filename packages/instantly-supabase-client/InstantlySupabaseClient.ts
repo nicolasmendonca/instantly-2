@@ -164,7 +164,7 @@ export class InstantlySupabaseClient {
         title,
         description,
         status_id,
-        assignee_id
+        assignee:assignee_id (id, full_name, avatar_url)
       `
       )
       .eq("id", taskId)
@@ -176,7 +176,11 @@ export class InstantlySupabaseClient {
           title: parsedResponse.title,
           description: parsedResponse.description,
           statusId: parsedResponse.status_id,
-          assigneeId: parsedResponse.assignee_id,
+          assignee: parsedResponse.assignee ? {
+            id: parsedResponse.assignee?.id,
+            fullName: parsedResponse.assignee?.full_name,
+            avatarUrl: parsedResponse.assignee?.avatar_url,
+          } : null
         };
       });
   }
@@ -217,7 +221,7 @@ export class InstantlySupabaseClient {
       assigneeId?: string | null;
     }
   ) {
-    const { data, error } = await this.client
+    const { error } = await this.client
       .from("tasks")
       .update({
         title,

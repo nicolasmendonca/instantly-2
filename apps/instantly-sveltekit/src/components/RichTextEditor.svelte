@@ -180,7 +180,7 @@
 			{status}
 		</div>
 	{/if}
-	<div bind:this={descriptionElementRef} class="editor-container" />
+	<div bind:this={descriptionElementRef} class="editor-container pb-6" />
 </div>
 
 <style lang="postcss">

@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { taskStore } from '$src/application/stores/taskStore';
+	import Spinner from '$src/components/Spinner.svelte';
 	import AssigneeButtonDropdown from './AssigneeButtonDropdown.svelte';
 	import StatusButtonDropdown from './StatusButtonDropdown.svelte';
+	import TaskDescription from './TaskDescription.svelte';
 </script>
 
 <div class="bg-neutral-700 h-screen max-h-screen overflow-y-auto">
-	{#await taskStore.load() then}
+	{#await taskStore.load()}
+		<div class="w-full h-screen flex items-center justify-center">
+			<Spinner />
+		</div>
+	{:then}
 		{#if $taskStore}
 			<header>
 				<div class="px-4 lg:mx-auto py-4 flex items-center justify-between">
@@ -29,13 +35,7 @@
 
 				<section class="mx-4 lg:mx-auto">
 					<h2 class="font-bold text-lg mb-2">Description:</h2>
-					{#await import('./TaskDescription.svelte') then TaskDescription}
-						<!-- Lazily load this component to delay loading the editorjs plugin -->
-						<TaskDescription.default />
-					{/await}
-					<!-- <p class="text-lg font-light mx-auto text-neutral-300">
-							{$taskStore.description}
-						</p> -->
+					<TaskDescription />
 				</section>
 			</div>
 		{/if}

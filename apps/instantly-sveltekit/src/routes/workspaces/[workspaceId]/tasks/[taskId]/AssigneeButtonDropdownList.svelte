@@ -1,17 +1,13 @@
 <script lang="ts">
 	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
-	import { taskStore } from '$src/application/stores/taskStore';
+	import { taskStore, updateTaskAssignee } from '$src/application/stores/taskStore';
 	import { workspaceMembersStore } from '$src/application/stores/workspaceMembersStore';
 	import Spinner from '$src/components/Spinner.svelte';
 </script>
 
 <button
 	class="text-primary-500 w-full p-2 text-right px-2 underline"
-	on:click={() =>
-		taskStore.update((prevValue) => ({
-			...prevValue,
-			assigneeId: null
-		}))}
+	on:click={() => updateTaskAssignee(null, null, false)}
 >
 	Unassign
 </button>
@@ -24,12 +20,7 @@
 			{#if $workspaceMember && $workspaceMember}
 				<li>
 					<button
-						on:click={() => {
-							taskStore.update((prevValue) => ({
-								...prevValue,
-								assigneeId: $workspaceMember.id
-							}));
-						}}
+						on:click={() => updateTaskAssignee($workspaceMember.id, $workspaceMember, false)}
 						class="flex items-center px-4 py-2 w-full hover:bg-neutral-100 dark:hover:bg-neutral-600 dark:hover:text-white"
 					>
 						{#if $workspaceMember.id === $taskAssigneeProfileStore?.id}
