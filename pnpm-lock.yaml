@@ -24,6 +24,7 @@ importers:
       '@typescript-eslint/eslint-plugin': ^5.45.0
       '@typescript-eslint/parser': ^5.45.0
       autoprefixer: ^10.4.7
+      date-fns: ^2.29.3
       debounce: ^1.2.1
       eslint: ^8.28.0
       eslint-config-prettier: ^8.5.0
@@ -58,6 +59,7 @@ importers:
       '@tiptap/extension-underline': 2.0.0-beta.215_eniwctcaj5fdsbkpvq7r5rnvwq
       '@tiptap/pm': 2.0.0-beta.215_eniwctcaj5fdsbkpvq7r5rnvwq
       '@tiptap/starter-kit': 2.0.0-beta.215_@tiptap+pm@2.0.0-beta.215
+      date-fns: 2.29.3
       debounce: 1.2.1
       flowbite: 1.6.3
       instantly-supabase-client: link:../../packages/instantly-supabase-client
@@ -1422,6 +1424,11 @@ packages:
   /data-uri-to-buffer/4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debounce/1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}

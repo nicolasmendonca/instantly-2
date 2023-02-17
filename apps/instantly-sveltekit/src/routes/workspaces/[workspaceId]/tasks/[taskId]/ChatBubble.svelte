@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
+	import Avatar from '$src/components/Avatar.svelte';
 
 	type ChatMessage = Awaited<
 		ReturnType<typeof instantlyClient.getMessagesWithSenderProfile>
@@ -21,11 +22,7 @@
 >
 	<!-- Avatar -->
 	{#if includeSenderInfo}
-		<img
-			class="w-10 h-10 mr-6 rounded-full object-cover"
-			src={message.senderProfile.avatarUrl}
-			alt=""
-		/>
+		<Avatar avatarUrl={message.senderProfile.avatarUrl} />
 	{:else}
 		<div
 			class="w-full relative text-xs text-neutral-500 select-none opacity-0 group-hover:opacity-100"

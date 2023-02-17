@@ -24,6 +24,7 @@
 		"@tiptap/extension-underline": "2.0.0-beta.215",
 		"@tiptap/pm": "2.0.0-beta.215",
 		"@tiptap/starter-kit": "2.0.0-beta.215",
+		"date-fns": "^2.29.3",
 		"debounce": "^1.2.1",
 		"flowbite": "^1.6.3",
 		"instantly-supabase-client": "workspace:*",

@@ -24,7 +24,7 @@
 		editor = new Editor({
 			editorProps: {
 				attributes: {
-					class: 'prose prose-sm dark focus:outline-none break-words'
+					class: 'prose prose-sm dark focus:outline-none break-words max-w-[100%]'
 				}
 			},
 			element: descriptionElementRef,

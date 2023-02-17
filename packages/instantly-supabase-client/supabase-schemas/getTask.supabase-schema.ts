@@ -8,6 +8,6 @@ export const getTaskSupabaseSchema = z.object({
   assignee: z.object({
     id: z.string(),
     full_name: z.string(),
-    avatar_url: z.string().nullable(),
+    avatar_url: z.string(),
   }).nullable(),
 });

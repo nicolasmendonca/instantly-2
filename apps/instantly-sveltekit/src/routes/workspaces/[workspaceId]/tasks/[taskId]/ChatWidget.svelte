@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ChatBubble from './ChatBubble.svelte';
 	import ChatInput from './ChatInput.svelte';
+	import format from 'date-fns/format';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { instantlyClient } from '$src/infrastructure/supabase/instantlyClient';
@@ -9,6 +10,10 @@
 	import { generateWorkspaceAvatar } from '$src/application/avatar';
 	import { workspaceStore } from '$src/application/stores/workspaceStore';
 	import Spinner from '$src/components/Spinner.svelte';
+
+	function getSerializedDate(date: Date) {
+		return format(date, 'dd MMMM yyyy');
+	}
 
 	$: authUserProfile = $authUserProfileStore;
 
@@ -129,11 +134,26 @@
 		bind:this={chatContainerRef}
 	>
 		{#each messages as message, messageIndex (message.id)}
+			{@const isFirstMessage = messageIndex === messages.length - 1}
+			{@const isDifferentSenderThanPreviousMessage =
+				messages[messageIndex + 1]?.senderProfile.id !== message.senderProfile.id}
+			{@const isMessageSentAnotherDay =
+				messages[messageIndex - 1]?.createdAt &&
+				getSerializedDate(messages[messageIndex - 1].createdAt) !==
+					getSerializedDate(message.createdAt)}
 			<ChatBubble
 				{message}
-				includeSenderInfo={messages[messageIndex + 1]?.senderProfile.id !==
-					message.senderProfile.id || messageIndex === messages.length - 1}
+				includeSenderInfo={isFirstMessage ||
+					isDifferentSenderThanPreviousMessage ||
+					isMessageSentAnotherDay}
 			/>
+			{#if isMessageSentAnotherDay}
+				<div
+					class="mt-2 pt-1 w-full text-sm text-neutral-500 text-center border-t border-neutral-600"
+				>
+					{getSerializedDate(message.createdAt)}
+				</div>
+			{/if}
 		{/each}
 		{#if hasMoreMessages}
 			<div bind:this={lastMessageIndicator} class="flex w-full items-center justify-center py-4">

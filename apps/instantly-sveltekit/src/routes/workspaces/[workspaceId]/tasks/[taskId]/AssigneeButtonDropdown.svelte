@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Avatar from '$src/components/Avatar.svelte';
+
 	import { Dropdown } from 'flowbite';
 	import { taskStore } from '$src/application/stores/taskStore';
 	import { taskAssigneeProfileStore } from '$src/application/stores/taskAssigneeProfileStore';
@@ -38,12 +40,7 @@
 	>
 		{#if $taskAssigneeProfileStore}
 			<div>{$taskAssigneeProfileStore.fullName}</div>
-			<img
-				class="w-10 h-10 rounded-full"
-				loading="lazy"
-				src={$taskAssigneeProfileStore.avatarUrl}
-				alt="Rounded avatar"
-			/>
+			<Avatar avatarUrl={$taskAssigneeProfileStore.avatarUrl} />
 		{:else}
 			<div>Unassigned</div>
 		{/if}

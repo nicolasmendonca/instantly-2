@@ -177,9 +177,9 @@ export class InstantlySupabaseClient {
           description: parsedResponse.description,
           statusId: parsedResponse.status_id,
           assignee: parsedResponse.assignee ? {
-            id: parsedResponse.assignee?.id,
-            fullName: parsedResponse.assignee?.full_name,
-            avatarUrl: parsedResponse.assignee?.avatar_url,
+            id: parsedResponse.assignee.id,
+            fullName: parsedResponse.assignee.full_name,
+            avatarUrl: parsedResponse.assignee.avatar_url,
           } : null
         };
       });
