@@ -1,4 +1,6 @@
 <script lang="ts">
+	import AddNewTaskButton from './AddNewTaskButton.svelte';
+
 	import WorkspaceMenuSectionDivider from './WorkspaceMenuSectionDivider.svelte';
 	import WorkspaceMenuTaskStatusHeading from './WorkspaceMenuTaskStatusHeading.svelte';
 	import WorkspaceMenuTaskItem from './WorkspaceMenuTaskItem.svelte';
@@ -12,6 +14,7 @@
 	{#if $workspaceStore}
 		<section class="bg-neutral-700">
 			<h1 class="font-extrabold text-lg p-4">{$workspaceStore.name}</h1>
+			<AddNewTaskButton />
 			<section class="h-[calc(100vh_-_4rem)] overflow-y-auto">
 				{#await tasksGroupedByStatusStore.load() then}
 					{#if $tasksGroupedByStatusStore}

@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import type { SupabaseClient as SupabaseClientJs } from "@supabase/supabase-js";
 import { getMessagesSupabaseSchema } from "./supabase-schemas/getMessages.supabase-schema";
 import { getTaskSupabaseSchema } from "./supabase-schemas/getTask.supabase-schema";
@@ -235,6 +236,28 @@ export class InstantlySupabaseClient {
     if (error) throw error;
   }
 
+  public async createNewTask({
+    id,
+    title = '',
+    statusId,
+    workspaceId,
+  }: {
+    id?: string,
+    title?: string,
+    workspaceId: string,
+    statusId: string
+  }) {
+    const { data, error } = await this.client.from('tasks').insert({
+      id,
+      title,
+      status_id: statusId,
+      workspace_id: workspaceId,
+    }).select('*').single()
+
+    if (error) throw error;
+    return data
+  }
+
   // TASK STATUSES ------------------------------------------------------------
   async getTaskStatuses(workspaceId: string) {
     const { data, error } = await this.client
@@ -341,6 +364,7 @@ export class InstantlySupabaseClient {
       }
     );
   }
+
 }
 
 class UserNotAuthenticatedError extends Error {}

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import EditableTaskTitle from './EditableTaskTitle.svelte';
+
 	import { taskStore } from '$src/application/stores/taskStore';
 	import Spinner from '$src/components/Spinner.svelte';
 	import AssigneeButtonDropdown from './AssigneeButtonDropdown.svelte';
@@ -15,7 +17,7 @@
 		{#if $taskStore}
 			<header>
 				<div class="px-4 lg:mx-auto py-4 flex items-center justify-between">
-					<h1 class="font-semibold text-2xl">{$taskStore.title}</h1>
+					<EditableTaskTitle />
 				</div>
 				<hr class="h-px bg-gray-500 border-0 dark:bg-neutral-500" />
 			</header>

@@ -13,12 +13,12 @@
 	let chatPane: HTMLDivElement;
 
 	onMount(() => {
-		Split([workspacePane, chatPane, taskPane], {
-			sizes: [20, 50, 30],
-			minSize: [200, 400, 300],
-			cursor: 'col-resize',
-			gutterSize: 4
-		});
+		// Split([workspacePane, chatPane, taskPane], {
+		// 	sizes: [20, 50, 30],
+		// 	minSize: [200, 400, 300],
+		// 	cursor: 'col-resize',
+		// 	gutterSize: 4
+		// });
 	});
 </script>
 
@@ -27,17 +27,17 @@
 		<WorkspacesNav />
 	</div>
 	<div class="flex w-screen h-screen overflow-x-hidden">
-		<div class="w-[20%] overflow-y-hidden" bind:this={workspacePane}>
+		<div class="w-[25%] overflow-y-hidden" bind:this={workspacePane}>
 			{#key $page.params.workspaceId}
 				<WorkspaceMenu />
 			{/key}
 		</div>
-		<div class="w-[50%] overflow-y-hidden" bind:this={chatPane}>
+		<div class="w-[35%] overflow-y-hidden" bind:this={chatPane}>
 			{#key $page.params.taskId}
 				<ChatWidget />
 			{/key}
 		</div>
-		<div class="w-[30%] overflow-y-hidden" bind:this={taskPane}>
+		<div class="w-[40%] overflow-y-hidden" bind:this={taskPane}>
 			{#key $page.params.taskId}
 				<TaskWidget />
 			{/key}

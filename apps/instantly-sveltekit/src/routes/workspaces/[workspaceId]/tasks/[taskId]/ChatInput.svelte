@@ -52,11 +52,9 @@
 			>
 			<span class="sr-only">Add emoji</span>
 		</button>
-		<!-- svelte-ignore a11y-autofocus -->
 		<input
 			bind:value={text}
 			autocomplete="off"
-			autofocus
 			name="text"
 			class="block mx-4 p-2.5 w-full text-sm text-neutral-900 bg-white rounded-lg border border-neutral-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-800 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 			placeholder="Your message..."
