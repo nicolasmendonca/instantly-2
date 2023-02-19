@@ -48,7 +48,7 @@
 	});
 </script>
 
-<div class="relative rounded-lg border-2 border-neutral-500">
+<div class="relative border-2 border-neutral-500 rounded-lg">
 	{#if editor}
 		<div class="bg-neutral-500 border-b-2 border-b-neutral-500">
 			<!-- Bold, italic and underline -->
@@ -180,7 +180,7 @@
 			{status}
 		</div>
 	{/if}
-	<div bind:this={descriptionElementRef} class="editor-container pb-6" />
+	<div bind:this={descriptionElementRef} class="editor-container pb-6 rounded-b-lg" />
 </div>
 
 <style lang="postcss">

@@ -63,3 +63,14 @@ export async function updateTaskDescription(description: string, revalidate = tr
     await taskStore.reload?.();
   }
 }
+
+export async function updateTaskTitle(title: string, revalidate = true) {
+  taskStore.update((task) => ({
+    ...task,
+    title,
+  }))
+
+  if (revalidate) {
+    await taskStore.reload?.();
+  }
+}

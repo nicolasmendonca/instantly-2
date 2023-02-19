@@ -32,12 +32,15 @@
 				<WorkspaceMenu />
 			{/key}
 		</div>
-		<div class="w-[35%] overflow-y-hidden" bind:this={chatPane}>
+		<div
+			class="w-[40%] overflow-y-hidden border-l border-r border-neutral-800"
+			bind:this={chatPane}
+		>
 			{#key $page.params.taskId}
 				<ChatWidget />
 			{/key}
 		</div>
-		<div class="w-[40%] overflow-y-hidden" bind:this={taskPane}>
+		<div class="w-[35%] overflow-y-hidden" bind:this={taskPane}>
 			{#key $page.params.taskId}
 				<TaskWidget />
 			{/key}

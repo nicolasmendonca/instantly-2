@@ -6,7 +6,8 @@ export const tasksStore = asyncWritable(
 	[workspaceIdStore],
 	async ([$workspaceId]) => instantlyClient.getTasks($workspaceId),
 	// Accept a function that takes any updated promises to update the UI without performing extra requests
-	async (updatedTasks) => updatedTasks
+	async (updatedTasks) => updatedTasks,
+  { reloadable: true }
 );
 
 export async function updateTaskStatusFromList(taskId: string, statusId: string, revalidate = true) {
@@ -16,6 +17,27 @@ export async function updateTaskStatusFromList(taskId: string, statusId: string,
         return {
           ...task,
           statusId,
+        };
+      }
+
+      return task;
+    });
+
+    return updatedTasks;
+  });
+
+  if (revalidate) {
+    await tasksStore.reload?.();
+  }
+}
+
+export async function updateTaskTitleFromList(taskId: string, title: string, revalidate = true) {
+  tasksStore.update((tasks) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          title,
         };
       }
 

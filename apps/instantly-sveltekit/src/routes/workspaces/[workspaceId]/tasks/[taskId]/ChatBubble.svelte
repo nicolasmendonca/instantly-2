@@ -18,16 +18,16 @@
 
 <div
 	class:mt-4={includeSenderInfo}
-	class="px-8 py-1 grid grid-cols-[5rem,_1fr] items-center group relative w-full transition-all hover:bg-neutral-900 hover:bg-opacity-40 rounded-lg"
+	class="px-8 py-1 grid grid-cols-[4rem,_1fr] items-center group relative w-full transition-all hover:bg-neutral-900 hover:bg-opacity-40 rounded-lg"
 >
 	<!-- Avatar -->
 	{#if includeSenderInfo}
 		<Avatar avatarUrl={message.senderProfile.avatarUrl} />
 	{:else}
 		<div
-			class="w-full relative text-xs text-neutral-500 select-none opacity-0 group-hover:opacity-100"
+			class="h-full relative text-xs text-neutral-500 select-none opacity-0 group-hover:opacity-100"
 		>
-			<div class="pt-1">
+			<div class="absolute inset-0 top-1 right-1">
 				{formatter.format(message.createdAt)}
 			</div>
 		</div>
